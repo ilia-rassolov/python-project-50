@@ -1,5 +1,6 @@
 import argparse
 import pathlib
+import json
 
 
 parser = argparse.ArgumentParser(description='Compares two configuration files and shows a difference.')
@@ -7,5 +8,7 @@ parser.add_argument('first_file', type=pathlib.Path)
 parser.add_argument('second_file', type=pathlib.Path)
 parser.add_argument('-f', '--format', help='set format of output')
 
-
 args = parser.parse_args()
+
+def generate_diff(file_first, file_second):
+
