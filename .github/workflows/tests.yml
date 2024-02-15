@@ -27,6 +27,7 @@ jobs:
         run:  |
           pip install pytest
           make lint
+          pip install flake8
           make test
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v5.0.0
