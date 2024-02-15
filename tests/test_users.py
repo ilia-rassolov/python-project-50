@@ -3,9 +3,9 @@ import json
 
 
 def test_generate_diff():
-    data1 = json.load(open('f1_input.json'))
+    data1 = json.load(open('fixtures/f1_input.json'))
     # print('data1 = ', data1)
-    data2 = json.load(open('f2_input.json'))
+    data2 = json.load(open('fixtures/f2_input.json'))
 
     # объединим ключи через множество в список
     keys = list(set(list(data1.keys())
@@ -28,7 +28,7 @@ def test_generate_diff():
     data2_str = to_str_value(data2)
 
     # запишем различия между данными в file_out и прочтём их
-    string = open('file_out', 'w')
+    string = open('fixtures/file_out', 'w')
     string.write('{\n')
     for key in keys:
         # print(key)
@@ -43,7 +43,7 @@ def test_generate_diff():
         else:
             string.write(f'  + {key}: {data2_str[key]}\n')
     string.write('}')
-    string = open('file_out')
+    string = open('fixtures/file_out')
     result = string.read()
 
-    assert generate_diff('f1_input.json', 'f2_input.json') == result
+    assert generate_diff('fixtures/f1_input.json', 'fixtures/f2_input.json') == result
