@@ -22,6 +22,13 @@ jobs:
         uses: hexlet/project-action@release
         with:
           hexlet-id: ${{ secrets.HEXLET_ID }}
+      - uses: actions/setup-python@v4
+      - run: pip install poetry
+      - run: make build
+      - run: make publish
+      - run: make install
+      - run: make package-install
+      - run: pip install pytest
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v5.0.0
         env:
