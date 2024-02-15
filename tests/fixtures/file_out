@@ -1,0 +1,10 @@
+{
+  - follow: false
+    host: hexlet.io
+  - key_None: None
+  + key_more: value
+  - proxy: 100.000.00.00
+  - timeout: 50000
+  + timeout: 20
+  + verbose: true
+}
