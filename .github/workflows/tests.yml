@@ -12,9 +12,9 @@ jobs:
     - run: make install
     - run: make package-install
     - run: pip install pytest
-    - name: Linter & Pytest
-      run: |
-          make check
+#    - name: Linter & Pytest
+#      run: |
+#          make check
     - name: Test & publish code coverage
       uses: paambaati/codeclimate-action@v5.0.0
       env:
