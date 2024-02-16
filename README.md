@@ -2,6 +2,8 @@
 
 [![hexlet-check](https://github.com/ilia-rassolov/python-project-50/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/ilia-rassolov/python-project-50/actions/workflows/hexlet-check.yml)
 
+[![my-check](https://github.com/ilia-rassolov/python-project-50/actions/workflows/tests.yml/badge.svg)](https://github.com/ilia-rassolov/python-project-50/actions/workflows/tests.yml)
+
 [![Maintainability](https://api.codeclimate.com/v1/badges/a723eafeff9ce50f593f/maintainability)](https://codeclimate.com/github/ilia-rassolov/python-project-50/maintainability)
 
 [![Test Coverage](https://api.codeclimate.com/v1/badges/a723eafeff9ce50f593f/test_coverage)](https://codeclimate.com/github/ilia-rassolov/python-project-50/test_coverage)
