@@ -14,14 +14,15 @@ jobs:
         uses: actions/setup-python@v4
         with:
             python-version: ${{ matrix.python-version }}
-      - name: Install dependencies
+      - name: Install dependencies & Setup project
         run: |
           pip install poetry
+          make build
+          make package-install
           poetry install  --with flake8,pytest
       - name: Linter Test
         run:  |
           make lint
-#          pip install flake8
           make test
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v5.0.0
