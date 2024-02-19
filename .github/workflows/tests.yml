@@ -18,16 +18,16 @@ jobs:
         run: |
           pip install poetry
           make install
-      - name: Setup project
-        run:  |
-          make build
-          make publish
-          make install
-          make package-install
+#      - name: Setup project
+#        run:  |
+#          make build
+#          make publish
+#          make install
+#          make package-install
       - name: Linter & Pytest
         run:  |
           make lint
-          pip install flake8
+#          pip install flake8
           make test
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v5.0.0
