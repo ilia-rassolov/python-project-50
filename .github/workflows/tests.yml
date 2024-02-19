@@ -19,7 +19,7 @@ jobs:
           pip install poetry
           make build
           make package-install
-          poetry install  --with flake8,pytest
+          poetry install --with dev
       - name: Linter Test
         run:  |
           make lint
