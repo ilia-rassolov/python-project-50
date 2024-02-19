@@ -18,13 +18,7 @@ jobs:
         run: |
           pip install poetry
           make install
-#      - name: Setup project
-#        run:  |
-#          make build
-#          make publish
-#          make install
-#          make package-install
-      - name: Linter & Pytest
+      - name: Linter Test
         run:  |
           make lint
 #          pip install flake8
