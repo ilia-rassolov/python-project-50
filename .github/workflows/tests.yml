@@ -20,7 +20,7 @@ jobs:
           make build
           make package-install
           poetry install --with dev
-      - name: Linter Test
+      - name: Linter & Test
         run:  |
           make lint
           make test
