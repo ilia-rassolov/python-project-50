@@ -1,14 +1,10 @@
-import json
+# функция строит дифф между двумя словарями
 
-
-def generate_diff(filepath1, filepath2):
-
-    data1 = json.load(open(filepath1))
-    data2 = json.load(open(filepath2))
+def generate_diff(data1_, data2_):
 
     # объединим ключи через множество в список
-    keys = list(set(list(data1.keys())
-                    + list(data2.keys())))
+    keys = list(set(list(data1_.keys())
+                    + list(data2_.keys())))
     keys.sort()
 
     # эта функция форматирует значения словарей в строки
@@ -24,12 +20,10 @@ def generate_diff(filepath1, filepath2):
                 data_str[key] = str(data[key])
         return data_str
 
-    data1_str = to_str_value(data1)
-    data2_str = to_str_value(data2)
+    data1_str = to_str_value(data1_)
+    data2_str = to_str_value(data2_)
 
-    # print('data1_str = ', data1_str)
-    # print('data2_str = ', data2_str)
-
+    # запишем различия между данными в строку
     result = '{\n'
     for key in keys:
         if key in data1_str:
@@ -46,9 +40,3 @@ def generate_diff(filepath1, filepath2):
     result += '}'
 
     return result
-
-#
-# print(generate_diff('json_files/file1.json', 'json_files/file2.json'))
-#
-# print(generate_diff('/home/mint/PycharmProjects/python-project-50/tests/fixtures/f1_input.json',
-#                     '/home/mint/PycharmProjects/python-project-50/tests/fixtures/f2_input.json'))

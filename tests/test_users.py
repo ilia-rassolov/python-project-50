@@ -1,11 +1,8 @@
 from gendiff.make_diff import generate_diff
-import json
+from gendiff.parser_files import data1, data2
 
 
 def test_generate_diff():
-    data1 = json.load(open('tests/fixtures/f1_input.json'))
-    # print('data1 = ', data1)
-    data2 = json.load(open('tests/fixtures/f2_input.json'))
 
     # объединим ключи через множество в список
     keys = list(set(list(data1.keys())
@@ -46,4 +43,4 @@ def test_generate_diff():
     string = open('tests/fixtures/file_out')
     result = string.read()
 
-    assert generate_diff('tests/fixtures/f1_input.json', 'tests/fixtures/f2_input.json') == result
+    assert generate_diff(data1, data2) == result
