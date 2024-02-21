@@ -1,8 +1,19 @@
 from gendiff.make_diff import generate_diff
-from gendiff.parser_files import data1, data2
+from gendiff.parser_files import parsing_file
+import pytest
 
+fixtures_input = [
+    'tests/fixtures/f_1input.json', 'tests/fixtures/f_1input.json'
+    'tests/fixtures/f_1input.yaml', 'tests/fixtures/f_1input.yaml'
+    'tests/fixtures/file.yml'
+    ]
+                  ]
+@pytest.mark.parametrize(filepath1, fixtures_input)
+@pytest.mark.parametrize(filepath2, fixtures_input)
+def test_generate_diff(filepath1, filepath2):
 
-def test_generate_diff():
+    data1 = parsing_file(filepath1)
+    data2 = parsing_file(filepath2)
 
     # объединим ключи через множество в список
     keys = list(set(list(data1.keys())
@@ -43,4 +54,8 @@ def test_generate_diff():
     string = open('tests/fixtures/file_out')
     result = string.read()
 
-    assert generate_diff(data1, data2) == result
+    diff = generate_diff(filepath1, filepath2)
+
+
+
+    assert diff == result

@@ -1,6 +1,6 @@
 {
   - follow: false
-    host: hexlet.io
+    host-yaml: hexlet.io
   - key_None: None
   + key_more: value
   - proxy: 100.000.00.00

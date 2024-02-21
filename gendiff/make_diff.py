@@ -1,6 +1,8 @@
-# функция строит дифф между двумя словарями
+from parser_files import parsing_file
 
-def generate_diff(data1_, data2_):
+def generate_diff(filepath1_, filepath2_):
+    data1_ = parsing_file(filepath1_)
+    data2_ = parsing_file(filepath2_)
 
     # объединим ключи через множество в список
     keys = list(set(list(data1_.keys())

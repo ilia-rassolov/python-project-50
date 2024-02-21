@@ -1,9 +1,13 @@
 import json
-from gendiff.parser_args import args
+import yaml
+from yaml.loader import SafeLoader
 
 
-# def
-# if args:
+def parsing_file(filepath):
 
-data1 = json.load(open('tests/fixtures/f1_input.json'))
-data2 = json.load(open('tests/fixtures/f2_input.json'))
+    if f'{filepath}'[-5:] == '.json':
+        return json.load(open(filepath))
+    elif f'{filepath}'[-5:] == '.yaml' or f'{filepath}'[-4:] == '.yml':
+        return yaml.load(open(filepath), Loader=SafeLoader)
+    else:
+        return 'Not correct request'
