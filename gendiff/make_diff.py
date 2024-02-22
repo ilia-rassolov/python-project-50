@@ -43,3 +43,5 @@ def generate_diff(filepath1_, filepath2_):
     result += '}'
 
     return result
+
+print(generate_diff('tests/fixtures/f1_input.yaml', 'tests/fixtures/f2_input.yaml'))
