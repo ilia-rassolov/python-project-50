@@ -1,5 +1,6 @@
 from parser_file import parsing_file
 
+
 def generate_diff(filepath1_, filepath2_):
     data1_ = parsing_file(filepath1_)
     data2_ = parsing_file(filepath2_)
