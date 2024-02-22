@@ -1,19 +1,16 @@
 from gendiff.make_diff import generate_diff
-from gendiff.parser_files import parsing_file
-import pytest
+from gendiff.parser_file import parsing_file
 
-fixtures_input = [
-    'tests/fixtures/f_1input.json', 'tests/fixtures/f_1input.json'
-    'tests/fixtures/f_1input.yaml', 'tests/fixtures/f_1input.yaml'
-    'tests/fixtures/file.yml'
-    ]
-                  ]
-@pytest.mark.parametrize(filepath1, fixtures_input)
-@pytest.mark.parametrize(filepath2, fixtures_input)
-def test_generate_diff(filepath1, filepath2):
 
-    data1 = parsing_file(filepath1)
-    data2 = parsing_file(filepath2)
+# @pytest.mark.parametrize(filepath1, ['tests/fixtures/f_1input.json',
+#                                      'tests/fixtures/f_1input.yaml',
+#                                      'tests/fixtures/file.yml'])
+# @pytest.mark.parametrize(filepath2, ['tests/fixtures/f_2input.json',
+#                                      'tests/fixtures/f_2input.yaml'])
+def test_generate_diff():
+
+    data1 = parsing_file('tests/fixtures/f1_input.yaml')
+    data2 = parsing_file('tests/fixtures/f2_input.yaml')
 
     # объединим ключи через множество в список
     keys = list(set(list(data1.keys())
@@ -54,8 +51,5 @@ def test_generate_diff(filepath1, filepath2):
     string = open('tests/fixtures/file_out')
     result = string.read()
 
-    diff = generate_diff(filepath1, filepath2)
-
-
-
+    diff = generate_diff('tests/fixtures/f1_input.yaml', 'tests/fixtures/f2_input.yaml')
     assert diff == result
