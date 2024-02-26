@@ -1,4 +1,4 @@
-from parser_file import parsing_file
+from gendiff.parser_file import parsing_file
 
 
 def generate_diff(filepath1_, filepath2_):
@@ -44,4 +44,5 @@ def generate_diff(filepath1_, filepath2_):
 
     return result
 
-print(generate_diff('tests/fixtures/f1_input.yaml', 'tests/fixtures/f2_input.yaml'))
+
+# print(generate_diff('yaml_files/file1.yaml', 'yaml_files/file2.yaml'))
