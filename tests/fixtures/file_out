@@ -1,10 +1,7 @@
 {
-  - follow: false
-    host-yaml: hexlet.io
-  - key_None: None
+  + host-yaml: hexlet.io
+  - host-yml: hexlet.io
   + key_more: value
-  - proxy: 100.000.00.00
-  - timeout: 50000
-  + timeout: 20
-  + verbose: true
+    timeout: 20
+    verbose: true
 }

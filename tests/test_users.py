@@ -3,34 +3,25 @@ from gendiff.parser_file import parsing_file
 import pytest
 
 
-# @pytest.mark.parametrize("filepath1", ['tests/fixtures/f_1input.json',
-#                                        'tests/fixtures/f_1input.yaml',
-#                                        'tests/fixtures/file.yml'])
-# @pytest.mark.parametrize("filepath2", ['tests/fixtures/f_2input.json',
-#                                        'tests/fixtures/f_2input.yaml'])
-# def test_generate_diff(filepath1, filepath2):
-#
-#     data1 = parsing_file(filepath1)
-#     data2 = parsing_file(filepath2)
-#     ...
-#     ...
-#     diff = generate_diff("filepath1", "filepath2")
-#     assert diff == result
-#     pass
+@pytest.mark.parametrize("filepath1", ['tests/fixtures/f1_input.json',
+                                       'tests/fixtures/f1_input.yaml',
+                                       'tests/fixtures/file.yml'])
+@pytest.mark.parametrize("filepath2", ['tests/fixtures/f2_input.json',
+                                       'tests/fixtures/f2_input.yaml'])
+def test_generate_diff(filepath1, filepath2):
 
-def test_generate_diff():
-    data1 = parsing_file('tests/fixtures/f1_input.yaml')
-    data2 = parsing_file('tests/fixtures/f2_input.yaml')
+    data1: dict = parsing_file(filepath1)
+    data2: dict = parsing_file(filepath2)
 
     # объединим ключи через множество в список
-    keys = list(set(list(data1.keys())
-                    + list(data2.keys())))
+    keys = list(set(list(data1)
+                    + list(data2)))
     keys.sort()
 
     # эта функция форматирует значения словарей в строки
-    def to_str_value(data):
+    def to_str_value(data: dict):
         data_str = {}
-        for key in data.keys():
+        for key in data:
             if isinstance(data[key], bool):
                 data_str[key] = str(data[key]).lower()
             elif data[key] == 'null':
@@ -61,5 +52,6 @@ def test_generate_diff():
     string = open('tests/fixtures/file_out')
     result = string.read()
 
-    diff = generate_diff('tests/fixtures/f1_input.yaml', 'tests/fixtures/f2_input.yaml')
+    diff = generate_diff(filepath1, filepath2)
     assert diff == result
+    pass

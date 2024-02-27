@@ -13,12 +13,19 @@
 
 1. Команда **gendiff -h** выводит описание решаемой задачи и список опций
 
-   **gendiff gendiff/json_files/file1.json gendiff/json_files/file2.json** 
+2. **gendiff gendiff/json_files/file1.json gendiff/json_files/file2.json** 
 
-   сравнивает данные, расположенные в аргументах (пути 2-х файлов)
+   сравнивает данные в файлах формата .json, расположенные в аргументах (пути 2-х файлов)
 
 
 [![asciicast](https://asciinema.org/a/OHyPacXfjy2BaJmTb3GngHDX9.svg)](https://asciinema.org/a/OHyPacXfjy2BaJmTb3GngHDX9)
+
+3. **gendiff gendiff/yaml_files/file1.yaml gendiff/yaml_files/file.yml** 
+
+   сравнивает данные в файлах формата .yaml .yml
+
+
+[![asciicast](https://asciinema.org/a/4gPnydJ1xEsY6mBPO4adSVsSx.svg)](https://asciinema.org/a/4gPnydJ1xEsY6mBPO4adSVsSx)
 
 
 
