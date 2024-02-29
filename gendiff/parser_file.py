@@ -12,3 +12,5 @@ def parsing_file(filepath):
         return yaml.load(open(filepath), Loader=SafeLoader)
     else:
         return 'Not correct request'
+
+
