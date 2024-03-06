@@ -27,24 +27,25 @@ def generate_diff(filepath1_, filepath2_):
     result += '}'
     return result
 #
-print(generate_diff('json_files/file1.json', 'json_files/file2.json'))
+# print(generate_diff('yaml_files/file1.json', 'yaml_files/file2.json'))
 
-data1_ = {'host': 'hexlet.io', 'timeout': '50', 'proxy': '123.234.53.22', 'follow': 'false'}
-data2_ = {'timeout': '20', 'verbose': 'true', 'host': 'hexlet.io'}
 
-def generate_diff_node(node, level=1):
+
+def generate_diff_node(data1_, data2_, node, level=1):
     value_1 = data1_[node]
     value_2 = data2_[node]
-    if not isinstance(data1_[node], dict) and not isinstance(data2_[node], dict):
-        return value_1, value_2, level
+    # print('value_1 = ', value_1, type(value_1))
+    # print('value_2 = ', value_2, type(value_2))
+    if not isinstance(value_1, dict) and not isinstance(value_2, dict):
+        return value_1, value_1, level
     level += 1
     children_1 = value_1
     children_2 = value_2
     return children_1, children_2, level
 
-
-
-print(generate_diff_node('timeout'))
+# data1 =  {'common': {'setting1': 'Value 1', 'setting2': 200, 'setting3': True, 'setting6': {'key': 'value', 'doge': {'wow': ''}}}, 'group1': {'baz': 'bas', 'foo': 'bar', 'nest': {'key': 'value'}}, 'group2': {'abc': 12345, 'deep': {'id': 45}}}
+# data2 =  {'common': {'follow': False, 'setting1': 'Value 1', 'setting3': None, 'setting4': 'blah blah', 'setting5': {'key5': 'value5'}, 'setting6': {'key': 'value', 'ops': 'vops', 'doge': {'wow': 'so much'}}}, 'group1': {'foo': 'bar', 'baz': 'bars', 'nest': 'str'}, 'group3': {'deep': {'id': {'number': 45}}, 'fee': 100500}}
+# print(generate_diff_node(data1, data2,'common'))
 
 
 
