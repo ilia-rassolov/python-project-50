@@ -36,7 +36,7 @@ from collections import defaultdict
 
 def generate_diff_node(data1_, data2_, node, level=1):
 
-    if not isinstance(data1_, dict) and not isinstance(data2_, dict):
+    if not isinstance(data1_[], dict) and not isinstance(data2_, dict):
         return data1_, data2_, level
     value_1 = data1_[node]
     value_2 = data2_[node]

@@ -1,6 +1,6 @@
-#.venv/
-#.new_venv/
-##dist/
-#.idea/
-#__pycache__/
-#questions.txt
+.venv/
+.new_venv/
+dist/
+.idea/
+__pycache__/
+questions.txt
