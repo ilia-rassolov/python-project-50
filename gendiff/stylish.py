@@ -50,7 +50,7 @@ def stylish(filepath1_, filepath2_):
     string = open('fixtures/file_out')
     result = string.read()
     print(result)
-    # diff = generate_diff('fixtures/file1.json', 'fixtures/file2.json')
+    # diff = generate_diff('fixtures/file1_stilish.json', 'fixtures/file2_stilish.json')
     # assert diff == result
     # pass
 

@@ -58,6 +58,7 @@
 from gendiff.make_diff import generate_diff
 from gendiff.make_diff import generate_diff_node
 from gendiff.parser_file import parsing_file
+from gendiff.dict_val_formatter import to_str_value
 
 # import pytest
 #
@@ -67,6 +68,7 @@ from gendiff.parser_file import parsing_file
 #                                        'tests/fixtures/file.yml'])
 # @pytest.mark.parametrize("filepath2", ['tests/fixtures/f2_input.json',
 #                                        'tests/fixtures/f2_input.yaml'])
+
 def test_generate_diff():
 
     data1: dict = parsing_file('fixtures/file1.json')
@@ -87,18 +89,19 @@ def test_generate_diff():
             print('key =', key)
             if key in node1:
                 if key in node2:
-                    string.write(f"{' ' * (level * 4 - 2)}{key}")
-                    string.write(': {\n')
                     value1, value2, acc = generate_diff_node(node1, node2, key, level)
                     print('value1 = ', value1, type(value1), type(value2))
                     if not isinstance(value1, dict) and not isinstance(value2, dict):
-                        print('value1 = ', value1, 'value2 = ', value2, 'acc = ', acc)
+                        print('value1 = ', value1, 'value2 = ', value2, ', acc = ', acc)
                         if value1 == value2:
-                            string.write(f"{' ' * (acc * 4 - 2)}{key}: {value1}\n")
+                            string.write(f"{'    ' * acc}{key}: {value1}\n")
                         else:
-                            string.write(f"{'  - ' * acc}{key}: {value1}\n")
-                            string.write(f"{'  + ' * acc}{key}: {value2}\n")
+                            string.write(f"{'    ' * (acc - 1)}{'  - '}{key}: {value1}\n")
+                            string.write(f"{'    ' * (acc - 1)}{'  + '}{key}: {value2}\n")
                     else:
+                        string.write(f"{'    ' * (acc - 1)}{'  - '}{key}: {value1}\n")
+                        string.write(f"{'    ' * (acc - 1)}{key}")
+                        string.write(': {\n')
                         children1, children2 = value1, value2
                         print('children1 = ', children1, 'children2 = ', children2)
                         keys_children = list(set(children1 | children2))
@@ -106,16 +109,24 @@ def test_generate_diff():
                         print('keys_children = ', keys_children, acc)
                         inner(children1, children2, keys_children, acc)
                 else:
-                    string.write(f"{'  - ' * level}{key}: {node1[key]}\n")
+                    string.write(f"{'     ' * (level - 1)}{key}")
+                    string.write(': {\n')
+                    children1 = value1
+                    keys_children = list(children1.keys())
+                    keys_children.sort()
+                    inner(children1, {}, keys_children, acc)
+                    string.write(f"{'    ' * (acc - 1)}{'  + '}{key}: {value2}\n")
             else:
-                string.write(f"{'    ' * (level - 1)}{'  + '}{key}: {node2[key]}\n")
-            string.write(f"{'    ' * level}")
+                string.write(f"{'    ' * (level - 1)}{'  - '}{key}: {node1[key]}\n")
+        else:
+            string.write(f"{'    ' * (level - 1)}{'  + '}{key}: {node2[key]}\n")
+        string.write(f"{'    ' * (level - 1)}")
         string.write('}\n')
-    inner(data1, data2)
+    inner(to_str_value(data1), to_str_value(data2))
     string = open('fixtures/file_out')
     result = string.read()
-    print(result)
-    # diff = generate_diff('fixtures/file1.json', 'fixtures/file2.json')
+    # print(result)
+    # diff = generate_diff('fixtures/file1_stilish.json', 'fixtures/file2_stilish.json')
     # assert diff == result
     # pass
 
@@ -123,3 +134,20 @@ def test_generate_diff():
 # data2_str = {'timeout': '20', 'verbose': 'true', 'host': 'hexlet.io'}
 # print(generate_diff_key('proxy'))
 print(test_generate_diff())
+
+def stringify(value, replacer=' ', spaces_count=1):
+
+    def iter_(current_value, depth):
+        if not isinstance(current_value, dict):
+            return str(current_value)
+
+        deep_indent_size = depth + spaces_count
+        deep_indent = replacer * deep_indent_size
+        current_indent = replacer * depth
+        lines = []
+        for key, val in current_value.items():
+            lines.append(f'{deep_indent}{key}: {iter_(val, deep_indent_size)}')
+        result = itertools.chain("{", lines, [current_indent + "}"])
+        return '\n'.join(result)
+
+    return iter_(value, 0)
