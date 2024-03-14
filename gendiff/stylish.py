@@ -4,9 +4,9 @@ from gendiff.parser_file import parsing_file
 from gendiff.dict_val_formatter import to_str_value, to_str
 from collections import defaultdict
 
-def empty_dict():
+def make_empty_dict():
     return {}
-d = defaultdict(empty_dict)
+empty_dict = defaultdict(make_empty_dict)
 
 def stylish(filepath1_, filepath2_):
     data1_: dict = parsing_file(filepath1_)
@@ -33,7 +33,7 @@ def stylish(filepath1_, filepath2_):
                     if not isinstance(value1, dict) and not isinstance(value2, dict):
                         print('value1 = ', value1, 'value2 = ', value2, 'acc = ', acc)
                         if value1 == value2:
-                            string.append(f"{'    ' * acc}{key}: {value1}\n")
+                            string.append(f"{'    ' * (acc - 1)}{'    '}{key}: {value1}\n")
                         else:
                             string.append(f"{'    ' * (acc - 1)}{'  - '}{key}: {value1}\n")
                             string.append(f"{'    ' * (acc - 1)}{'  + '}{key}: {value2}\n")
@@ -46,8 +46,8 @@ def stylish(filepath1_, filepath2_):
                         inner(children1, children2, keys_children, acc)
                 else:
                     string.append(f"{'  - ' * level}{key}: {node1[key]}\n")
-            elif not isinstance(node2[key], dict):
-                string.append(f"{'    ' * (level - 1)}{'  + '}{key}: {node2[key]}\n")
+            # elif not isinstance(node2[key], dict):
+            #     string.append(f"{'    ' * (level - 1)}{'  + '}{key}: {node2[key]}\n")
             else:
                 string.append(f"{'    ' * (level - 1)}{'  + '}{key}: {node2[key]}\n")
             string.append(f"{'    ' * level}")
@@ -55,11 +55,11 @@ def stylish(filepath1_, filepath2_):
     inner(data1, data2)
     result = str.join(string)
     print(result)
-    # diff = generate_diff('fixtures/file1_stilish.json', 'fixtures/file2_stilish.json')
+    # diff = generate_diff('fixtures/file1_stylish.json', 'fixtures/file2_stylish.json')
     # assert diff == result
     # pass
 
 # data1_str = {'host': 'hexlet.io', 'timeout': '50', 'proxy': '123.234.53.22', 'follow': 'false'}
 # data2_str = {'timeout': '20', 'verbose': 'true', 'host': 'hexlet.io'}
 # print(generate_diff_key('proxy'))
-print(test_generate_diff())
+# print(test_generate_diff())

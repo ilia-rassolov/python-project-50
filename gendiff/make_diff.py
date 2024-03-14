@@ -34,12 +34,24 @@ def generate_diff(filepath1_, filepath2_):
 
 from collections import defaultdict
 
-def generate_diff_node(data1_, data2_, node, level=1):
+def generate_diff_node(node1_, node2_, key_, level=1):
+    if key_ in node1_:
+        if key_ in node2_:
+            value_1 = node1_[key_]
+            value_2 = node2_[key_]
+            if not isinstance(value_1, dict) and not isinstance(value_2, dict):
+                if value_1 == value_2:
+                    return '    ', value_1, '    ', value_2
+                else:
+                    return '  - ', value_1, '  + ', value_2
+            elif not isinstance(value_1, dict) and isinstance(value_2, dict):
+                return '  - ', value_1, '  + ', value_2
 
-    if not isinstance(data1_[], dict) and not isinstance(data2_, dict):
-        return data1_, data2_, level
-    value_1 = data1_[node]
-    value_2 = data2_[node]
+
+
+
+        return value_1, value_2, level
+
     level += 1
     children_1 = value_1
     children_2 = value_2
@@ -48,10 +60,12 @@ def generate_diff_node(data1_, data2_, node, level=1):
 data1 = {'a': 1, 'b': 2}
 data2 = {'c': 3, 'a': 1}
 data3 = ''
-data4 = defaultdict()
+data4 = defaultdict(dict)
 data1.setdefault('key', []).append(data3)
-print(data1)
-
+data4['11']
+print(data4)
+data4 = defaultdict(dict)
+print(f"{data4=}")
 
 
 # data1 =  {'common': {'setting1': 'Value 1', 'setting2': 200, 'setting3': True, 'setting6': {'key': 'value', 'doge': {'wow': ''}}}, 'group1': {'baz': 'bas', 'foo': 'bar', 'nest': {'key': 'value'}}, 'group2': {'abc': 12345, 'deep': {'id': 45}}}
