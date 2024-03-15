@@ -34,43 +34,41 @@ def generate_diff(filepath1_, filepath2_):
 
 from collections import defaultdict
 
-def generate_diff_node(node1_, node2_, key_, level=1):
+def generate_diff_node(node1_, node2_, key_):
     if key_ in node1_:
         if key_ in node2_:
             value_1 = node1_[key_]
             value_2 = node2_[key_]
-            if not isinstance(value_1, dict) and not isinstance(value_2, dict):
-                if value_1 == value_2:
-                    return '    ', value_1, '    ', value_2
-                else:
-                    return '  - ', value_1, '  + ', value_2
-            elif not isinstance(value_1, dict) and isinstance(value_2, dict):
+            # if not isinstance(value_1, dict) and not isinstance(value_2, dict):
+            if value_1 == value_2:
+                return '    ', value_1, '    ', value_2
+            else:
                 return '  - ', value_1, '  + ', value_2
+            # elif not isinstance(value_1, dict) and isinstance(value_2, dict):
+            #     return '  - ', value_1, '  + ', value_2
+        else:
+            return '  - ', node1_[key_], None, None
+    else:
+        return None, None, '  + ', node2_[key_]
 
 
 
 
-        return value_1, value_2, level
-
-    level += 1
-    children_1 = value_1
-    children_2 = value_2
-    return children_1, children_2, level
-
-data1 = {'a': 1, 'b': 2}
-data2 = {'c': 3, 'a': 1}
-data3 = ''
-data4 = defaultdict(dict)
-data1.setdefault('key', []).append(data3)
-data4['11']
-print(data4)
-data4 = defaultdict(dict)
-print(f"{data4=}")
+# data1 = {'a': 1, 'b': 2}
+# data2 = {'c': 3, 'a': 1}
+# print(f"{generate_diff_node(data1, data2, 'b')}")
+# data3 = ''
+# data4 = defaultdict(dict)
+# data1.setdefault('key', []).append(data3)
+# data4['11']
+# # print(data4)
+# data4 = defaultdict(dict)
+# print(f"{data4=}")
 
 
 # data1 =  {'common': {'setting1': 'Value 1', 'setting2': 200, 'setting3': True, 'setting6': {'key': 'value', 'doge': {'wow': ''}}}, 'group1': {'baz': 'bas', 'foo': 'bar', 'nest': {'key': 'value'}}, 'group2': {'abc': 12345, 'deep': {'id': 45}}}
-data1 = 'aaa'
-data2 =  {'common': {'follow': False, 'setting1': 'Value 1', 'setting3': None, 'setting4': 'blah blah', 'setting5': {'key5': 'value5'}, 'setting6': {'key': 'value', 'ops': 'vops', 'doge': {'wow': 'so much'}}}, 'group1': {'foo': 'bar', 'baz': 'bars', 'nest': 'str'}, 'group3': {'deep': {'id': {'number': 45}}, 'fee': 100500}}
+# data1 = 'aaa'
+# data2 =  {'common': {'follow': False, 'setting1': 'Value 1', 'setting3': None, 'setting4': 'blah blah', 'setting5': {'key5': 'value5'}, 'setting6': {'key': 'value', 'ops': 'vops', 'doge': {'wow': 'so much'}}}, 'group1': {'foo': 'bar', 'baz': 'bars', 'nest': 'str'}, 'group3': {'deep': {'id': {'number': 45}}, 'fee': 100500}}
 # print(generate_diff_node(data1, data4, 'b'))
 
 
