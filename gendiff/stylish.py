@@ -21,33 +21,37 @@ def stylish(filepath1_, filepath2_):
     keys_data = list(set(data1 | data2))
     keys_data.sort()
     print('keys_data = ', keys_data)
-    string = ''
-    print(f"{string=}")
+    result = ''
+    # print(f"{string=}")
 
 
     def inner(node1, node2, keys_inner=keys_data, level=1):
-        string += f"{'    ' * (level - 1)}"
-        string += '{\n'
+        # string = f"{'    ' * (level - 1)}"
+        string = '{\n'
         for key in keys_inner:
             print('key =', key)
-            value1, symbol1, symbol2, value2 = generate_diff_node(node1, node2, key)
+            symbol1, value1, symbol2, value2 = generate_diff_node(node1, node2, key)
+            print(f"{generate_diff_node(node1, node2, key)=}")
             keys_children = []
-            for val, symb in ((value1, symbol1), (value2, symbol2)):
-                if val:
-                    if not isinstance(val, dict):
-                        string += f"{'    ' * (level - 1)}{symb}{key}: {to_str(val)}\n"
-                        print(f"{string=}")
-                    else:
-                        children = val
-                        keys_children.extend(list(children.keys()))
-                        keys_children.sort()
-            level += 1
-            for val in (value1, value2):
+            for symbol, val in ((symbol1, value1), (symbol2, value2)):
                 if not isinstance(val, dict):
-                    val == {}
-            # result1 = ''.join(string)
-            print(f"{string=}")
-            inner(value1, value2, keys_children, level)
+                    string += f"{'    ' * (level - 1)}{symbol}{key}: {to_str(val)}\n"
+                    print(f"{string=}")
+                    val = {}
+                else:
+                    children = val
+                    # объединим ключи через множество в список
+                    keys_children.extend(list(children.keys()))
+                    keys_children = list(set(keys_children))
+                    keys_children.sort()
+                    print(f"{keys_children=}")
+            if keys_children:
+                level += 1
+
+                inner(value1, value2, keys_children, level)
+            string += '}\n'
+        result += string
+    print(f"{result=}")
     inner(data1, data2)
     # result = str.join(string)
     return string
