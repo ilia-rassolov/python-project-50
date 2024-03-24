@@ -41,15 +41,15 @@ def generate_diff_node(node1_, node2_, key_):
             value_2 = node2_[key_]
             # if not isinstance(value_1, dict) and not isinstance(value_2, dict):
             if value_1 == value_2:
-                return '    ', value_1, '    ', value_2
+                return (value_1, '    '), (None, None)
             else:
-                return '  - ', value_1, '  + ', value_2
+                return (value_1, '  - '), (value_2, '  + ')
             # elif not isinstance(value_1, dict) and isinstance(value_2, dict):
             #     return '  - ', value_1, '  + ', value_2
         else:
-            return '  - ', node1_[key_], None, None
+            return (node1_[key_], '  - '), (None, None)
     else:
-        return None, None, '  + ', node2_[key_]
+        return (None, None), (node2_[key_], '  + ')
 
 
 

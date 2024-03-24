@@ -30,15 +30,15 @@ def stylish(filepath1_, filepath2_):
         string = '{\n'
         for key in keys_inner:
             print('key =', key)
-            symbol1, value1, symbol2, value2 = generate_diff_node(node1, node2, key)
+            (value1, symbol1), (value2, symbol2) = generate_diff_node(node1, node2, key)
             print(f"{generate_diff_node(node1, node2, key)=}")
             keys_children = []
-            for symbol, val in ((symbol1, value1), (symbol2, value2)):
-                if not isinstance(val, dict):
+            for val, symbol in ((value1, symbol1), (value2, symbol2)):
+                if not isinstance(val, dict) and val:
                     string += f"{'    ' * (level - 1)}{symbol}{key}: {to_str(val)}\n"
                     print(f"{string=}")
                     val = {}
-                else:
+                elif isinstance(val, dict):
                     children = val
                     # объединим ключи через множество в список
                     keys_children.extend(list(children.keys()))
@@ -47,7 +47,6 @@ def stylish(filepath1_, filepath2_):
                     print(f"{keys_children=}")
             if keys_children:
                 level += 1
-
                 inner(value1, value2, keys_children, level)
             string += '}\n'
         result += string
