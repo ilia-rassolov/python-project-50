@@ -4,9 +4,6 @@ from gendiff.parser_file import parsing_file
 from gendiff.dict_val_formatter import to_str_value, to_str
 from collections import defaultdict
 
-def make_empty_dict():
-    return {}
-empty_dict = defaultdict(make_empty_dict)
 
 def stylish(filepath1_, filepath2_):
     data1_: dict = parsing_file(filepath1_)
@@ -24,21 +21,21 @@ def stylish(filepath1_, filepath2_):
     result = ''
     # print(f"{string=}")
 
-
     def inner(node1, node2, keys_inner=keys_data, level=1):
         # string = f"{'    ' * (level - 1)}"
         string = '{\n'
         for key in keys_inner:
             print('key =', key)
-            (value1, symbol1), (value2, symbol2) = generate_diff_node(node1, node2, key)
-            print(f"{generate_diff_node(node1, node2, key)=}")
+            print(f"{node1=}", f"{node2=}")
+            (value1, symbol1), (value2, symbol2) = generate_diff_node(key, node1, node2)
+            print(f"{generate_diff_node(key, node1, node2)=}")
             keys_children = []
             for val, symbol in ((value1, symbol1), (value2, symbol2)):
-                if not isinstance(val, dict) and val:
+                # print(f"{value1=}", f"{symbol1=}", f"{value2=}", f"{symbol2=}")
+                if not isinstance(val, dict):
                     string += f"{'    ' * (level - 1)}{symbol}{key}: {to_str(val)}\n"
                     print(f"{string=}")
-                    val = {}
-                elif isinstance(val, dict):
+                elif isinstance(val, dict) and val:
                     children = val
                     # объединим ключи через множество в список
                     keys_children.extend(list(children.keys()))
@@ -47,13 +44,14 @@ def stylish(filepath1_, filepath2_):
                     print(f"{keys_children=}")
             if keys_children:
                 level += 1
+                print(f"{level=}")
+                # result += string
                 inner(value1, value2, keys_children, level)
             string += '}\n'
-        result += string
     print(f"{result=}")
     inner(data1, data2)
     # result = str.join(string)
-    return string
+    return result
 
 print(f"{stylish('json_files/file1_stilish.json', 'json_files/file2_stilish.json')=}")
 

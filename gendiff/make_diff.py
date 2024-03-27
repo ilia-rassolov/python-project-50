@@ -32,24 +32,22 @@ def generate_diff(filepath1_, filepath2_):
 #
 # print(generate_diff('yaml_files/file1_stilish.json', 'yaml_files/file2_stilish.json'))
 
-from collections import defaultdict
-
-def generate_diff_node(node1_, node2_, key_):
+def generate_diff_node(key_, node1_, node2_):
     if key_ in node1_:
         if key_ in node2_:
             value_1 = node1_[key_]
             value_2 = node2_[key_]
             # if not isinstance(value_1, dict) and not isinstance(value_2, dict):
             if value_1 == value_2:
-                return (value_1, '    '), (None, None)
+                return (value_1, '    '), ({}, None)
             else:
                 return (value_1, '  - '), (value_2, '  + ')
             # elif not isinstance(value_1, dict) and isinstance(value_2, dict):
             #     return '  - ', value_1, '  + ', value_2
         else:
-            return (node1_[key_], '  - '), (None, None)
+            return (node1_[key_], '  - '), ({}, None)
     else:
-        return (None, None), (node2_[key_], '  + ')
+        return ({}, None), (node2_[key_], '  + ')
 
 
 
@@ -132,3 +130,22 @@ def generate_diff_node(node1_, node2_, key_):
 # data2_str = {'timeout': '20', 'verbose': 'true', 'host': 'hexlet.io'}
 # print(generate_diff('json_files/file1_stilish.json', 'json_files/file2_stilish.json'))
 # print(generate_diff_key('proxy'))
+
+
+
+def stringify(value, replacer=' ', spaces_count=1):
+
+    def iter_(current_value, depth):
+        if not isinstance(current_value, dict):
+            return str(current_value)
+
+        deep_indent_size = depth + spaces_count
+        deep_indent = replacer * deep_indent_size
+        current_indent = replacer * depth
+        lines = []
+        for key, val in current_value.items():
+            lines.append(f'{deep_indent}{key}: {iter_(val, deep_indent_size)}')
+        result = itertools.chain("{", lines, [current_indent + "}"])
+        return '\n'.join(result)
+
+    return iter_(value, 0)
