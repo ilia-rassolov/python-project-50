@@ -1,94 +1,97 @@
-from gendiff.make_diff import generate_diff
-from gendiff.make_diff import generate_diff_node
+# from gendiff.make_diff import generate_diff
 from gendiff.parser_file import parsing_file
-from gendiff.dict_val_formatter import to_str_value, to_str
-from collections import defaultdict
+from gendiff.dict_val_formatter import to_str
+
+# эта функция создаёт внутреннее представление - промежуточную структуру данных tree_differences,
+# где указаны различия между data1 и data2 по параметрам: ключ, тип изменения, значения по ключу
+
+
+def build_tree(data1, data2):
+    keys = list(set(data1 | data2))
+    keys.sort()
+    # print(f"{keys=}")
+    tree_differences = []
+    for key in keys:
+        current_dict = {}
+        current_dict['key'] = key
+        if key in data1:
+            if key in data2:
+                value1 = data1[key]
+                value2 = data2[key]
+                if isinstance(value1, dict) and isinstance(value2, dict):
+                    current_dict['type'] = 'nested'
+                    current_dict['children'] = build_tree(value1, value2)
+                elif value1 == value2:
+                    current_dict['type'] = 'unchanged'
+                    current_dict['children'] = [to_str(value1)]
+                else:
+                    current_dict['type'] = 'changed'
+                    current_dict['children'] = [to_str(value1), to_str(value2)]
+            else:
+                current_dict['type'] = 'deleted'
+                current_dict['children'] = [to_str(data1[key])]
+        else:
+            current_dict['type'] = 'added'
+            current_dict['children'] = [to_str(data2[key])]
+        tree_differences.append(current_dict)
+    return tree_differences
+
+
+def get_children(dict_):
+    return dict_['children']
 
 
 def stylish(filepath1_, filepath2_):
-    data1_: dict = parsing_file(filepath1_)
-    data2_: dict = parsing_file(filepath2_)
+    data1 = parsing_file(filepath1_)
+    data2 = parsing_file(filepath2_)
 
-    data1 = to_str_value(data1_)
-    data2 = to_str_value(data2_)
     print('data1 = ', data1)
     print('data2 = ', data2)
 
-    # объединим ключи через множество в список
-    keys_data = list(set(data1 | data2))
-    keys_data.sort()
-    print('keys_data = ', keys_data)
-    result = ''
-    # print(f"{string=}")
+    tree_differences = build_tree(data1, data2)
+    print(f"{tree_differences=}")
 
-    def inner(node1, node2, keys_inner=keys_data, level=1):
-        # string = f"{'    ' * (level - 1)}"
-        string = '{\n'
-        for key in keys_inner:
-            print('key =', key)
-            print(f"{node1=}", f"{node2=}")
-            (value1, symbol1), (value2, symbol2) = generate_diff_node(key, node1, node2)
-            print(f"{generate_diff_node(key, node1, node2)=}")
-            keys_children = []
-            for val, symbol in ((value1, symbol1), (value2, symbol2)):
-                # print(f"{value1=}", f"{symbol1=}", f"{value2=}", f"{symbol2=}")
-                if not isinstance(val, dict):
-                    string += f"{'    ' * (level - 1)}{symbol}{key}: {to_str(val)}\n"
-                    print(f"{string=}")
-                elif isinstance(val, dict) and val:
-                    children = val
-                    # объединим ключи через множество в список
-                    keys_children.extend(list(children.keys()))
-                    keys_children = list(set(keys_children))
-                    keys_children.sort()
-                    print(f"{keys_children=}")
-            if keys_children:
-                level += 1
-                print(f"{level=}")
-                # result += string
-                inner(value1, value2, keys_children, level)
-            string += '}\n'
-    print(f"{result=}")
-    inner(data1, data2)
-    # result = str.join(string)
-    return result
+# эта функция создаёт результирующую строку
 
-print(f"{stylish('json_files/file1_stilish.json', 'json_files/file2_stilish.json')=}")
+    def build_string(tree_list):
+        result = ''
 
-# if key in node1:
-#                 if key in node2:
-#                     value1, value2, acc = generate_diff_node(node1, node2, key, level)
-#                     print('value1 = ', value1, type(value1), type(value2))
-#                     if not isinstance(value1, dict) and not isinstance(value2, dict):
-#                         print('value1 = ', value1, 'value2 = ', value2, 'acc = ', acc)
-#                         if value1 == value2:
-#                             string.append(f"{'    ' * (acc - 1)}{'    '}{key}: {value1}\n")
-#                         else:
-#                             string.append(f"{'    ' * (acc - 1)}{'  - '}{key}: {value1}\n")
-#                             string.append(f"{'    ' * (acc - 1)}{'  + '}{key}: {value2}\n")
-#                     else:
-#                         children1, children2 = value1, value2
-#                         print('children1 = ', children1, 'children2 = ', children2)
-#                         keys_children = list(set(children1 | children2))
-#                         keys_children.sort()
-#                         print('keys_children = ', keys_children, acc)
-#                         inner(children1, children2, keys_children, acc)
-#                 else:
-#                     string.append(f"{'  - ' * level}{key}: {node1[key]}\n")
-#             # elif not isinstance(node2[key], dict):
-#             #     string.append(f"{'    ' * (level - 1)}{'  + '}{key}: {node2[key]}\n")
-#             else:
-#                 string.append(f"{'    ' * (level - 1)}{'  + '}{key}: {node2[key]}\n")
-#             string.append(f"{'    ' * level}")
-#         string.append('}\n')
-#     inner(data1, data2)
-#     result = str.join(string)
-#     print(result)
-    # diff = generate_diff('fixtures/file1_stylish.json', 'fixtures/file2_stylish.json')
-    # assert diff == result
-    # pass
 
-# data1_str = {'host': 'hexlet.io', 'timeout': '50', 'proxy': '123.234.53.22', 'follow': 'false'}
-# data2_str = {'timeout': '20', 'verbose': 'true', 'host': 'hexlet.io'}
-# print(generate_diff_key('proxy'))
-# print(test_generate_diff())
+# эта функция словари из внутреннего представления
+        def inner(node, depth=0):
+            print(f"{node=}")
+            indent = ' ' * 4 * depth
+            current_string = f"{indent}"
+            current_string += '{\n'
+            if node['type'] == 'nested':
+                children = get_children(node)
+                print(f"{children=}")
+                current_string += f"{indent}    {node['key']}: "
+                for child in children:
+                    depth += 1
+                    print(f"{depth=}")
+                    print(f"{child=}")
+                    return inner(child)
+            elif node['type'] == 'unchanged':
+                current_string += f"{indent}    {node['key']}: {get_children(node)}\n"
+            elif node['type'] == 'changed':
+                current_string += f"{indent}  - {node['key']}: {get_children(node)[0]}\n"
+                current_string += f"{indent}  + {node['key']}: {get_children(node)[1]}\n"
+            elif node['type'] == 'deleted':
+                current_string += f"{indent}  - {node['key']}: {get_children(node)[0]}\n"
+            elif node['type'] == 'added':
+                current_string += f"{indent}  + {node['key']}: {get_children(node)[0]}\n"
+            current_string += f"{indent}"
+            current_string += '}\n'
+            print(f"{current_string=}")
+            return current_string
+
+        for item in tree_list:
+            string = inner(item)
+            result += string
+        return result
+
+    return build_string(tree_differences)
+
+
+print(f"{stylish('json_files/file1_stylish.json', 'json_files/file2_stylish.json')=}")
