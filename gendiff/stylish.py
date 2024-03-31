@@ -1,4 +1,3 @@
-# from gendiff.make_diff import generate_diff
 from gendiff.parser_file import parsing_file
 from gendiff.dict_val_formatter import to_str
 
@@ -37,10 +36,6 @@ def build_tree(data1, data2):
     return tree_differences
 
 
-def get_children(dict_):
-    return dict_['children']
-
-
 def stylish(filepath1_, filepath2_):
     data1 = parsing_file(filepath1_)
     data2 = parsing_file(filepath2_)
@@ -53,40 +48,54 @@ def stylish(filepath1_, filepath2_):
 
 # эта функция создаёт результирующую строку
 
-    def build_string(tree_list):
+    def build_string(tree, result=''):
         result = ''
 
+        # эта функция обрабатывает словари из внутреннего представления
 
-# эта функция словари из внутреннего представления
         def inner(node, depth=0):
+
             print(f"{node=}")
             indent = ' ' * 4 * depth
             current_string = f"{indent}"
             current_string += '{\n'
+            # result +=
+
+            def get_children(dict_, depth_=0):
+                children_ = dict_['children']
+                def expand_nesting(child_):
+                    if not isinstance(child_, dict):
+                        return child_
+                    else:
+                        return inner(child_, depth_)
+                return list(map(expand_nesting, children_))
+
             if node['type'] == 'nested':
-                children = get_children(node)
-                print(f"{children=}")
                 current_string += f"{indent}    {node['key']}: "
+                children = node['children']
+                depth += 1
+                print(f"{children=}")
+                # result += current_string
                 for child in children:
-                    depth += 1
                     print(f"{depth=}")
                     print(f"{child=}")
-                    return inner(child)
+                    inner(child, depth)
             elif node['type'] == 'unchanged':
-                current_string += f"{indent}    {node['key']}: {get_children(node)}\n"
+                current_string += f"{indent}    {node['key']}: {get_children(node, depth)[0]}\n"
             elif node['type'] == 'changed':
-                current_string += f"{indent}  - {node['key']}: {get_children(node)[0]}\n"
-                current_string += f"{indent}  + {node['key']}: {get_children(node)[1]}\n"
+                current_string += f"{indent}  - {node['key']}: {get_children(node, depth)[0]}\n"
+                current_string += f"{indent}  + {node['key']}: {get_children(node, depth)[1]}\n"
             elif node['type'] == 'deleted':
-                current_string += f"{indent}  - {node['key']}: {get_children(node)[0]}\n"
+                current_string += f"{indent}  - {node['key']}: {get_children(node, depth)[0]}\n"
             elif node['type'] == 'added':
-                current_string += f"{indent}  + {node['key']}: {get_children(node)[0]}\n"
+                current_string += f"{indent}  + {node['key']}: {get_children(node, depth)[0]}\n"
             current_string += f"{indent}"
             current_string += '}\n'
             print(f"{current_string=}")
             return current_string
+        # return inner
 
-        for item in tree_list:
+        for item in tree:
             string = inner(item)
             result += string
         return result
