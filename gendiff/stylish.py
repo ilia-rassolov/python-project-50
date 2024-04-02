@@ -11,9 +11,9 @@ def build_tree(data1, data2):
     # print(f"{keys=}")
     tree_differences = []
 
-
     # эта функция формирует потомков из словарей по единому ключу,
     # но только в том случае, если эти потомки оба не словари
+
     def build_children(dict1_, dict2_, key_):
         children_ = []
         for dict_ in (dict1_, dict2_):
@@ -21,9 +21,8 @@ def build_tree(data1, data2):
                 if isinstance(dict_[key_], dict):
                     value_ = build_tree(dict_[key_], dict_[key_])
                 else:
-                    value_ = to_str(dict_[key_])
-                children_.append(value_)
-        # print(f"{children_=}")
+                    value_ = [to_str(dict_[key_])]
+                children_.extend(value_)
         return children_
 
     for key in keys:
@@ -63,57 +62,76 @@ def stylish(filepath1_, filepath2_):
     tree_differences = build_tree(data1, data2)
     print(f"{tree_differences=}")
 
-# эта функция создаёт результирующую строку
+# эта функция накапливает результирующую строку
 
-    def build_string(tree, result=''):
-        result = ''
+    def build_string(tree, depth=0):
+        result = '{\n'
 
         # эта функция обрабатывает словари из внутреннего представления
 
-        def inner(node, depth=0):
+        def inner(node, depth_=0):
 
             print(f"{node=}")
-            indent = ' ' * 4 * depth
-            current_string = f"{indent}"
-            current_string += '{\n'
-            # result +=
+            indent = ' ' * 4 * depth_
+            current_string = ''
+            current_string += f"{indent}"
 
-            def get_children(dict_, depth_=0):
-                return dict_['children']
+            # эта функция формирует потомков из словаря,
+            # но только в том случае, если эти потомки оба не словари
+            def get_children(dict_, depth_child):
+                descendants = dict_['children']
+                new_descendants = []
+                for child in descendants:
+                    print(f"{child=}")
+                    if isinstance(child, dict):
+                        depth_child += 1
+                        value_ = inner(child, depth_child)
+                    else:
+                        value_ = child
+                    new_descendants.append(value_)
+                print(f"{descendants=}")
+                return new_descendants
+                # if isinstance(dict_['children'], dict):
+                #     return inner(dict_['children'], depth_child)
+                # else:
+                #     return dict_['children']
 
             if node['type'] == 'nested':
-                current_string += f"{indent}    {node['key']}\n: "
+                current_string += f"{indent}    {node['key']}: "
+                # current_string += '{\n'
                 children_node = node['children']
-                depth += 1
-                print(f"{children_node=}")
-                # result += current_string
-                # for child in children:
-                #     print(f"{depth=}")
-                #     print(f"{child=}")
-                #     inner(child, depth)
-                string_nest = build_string(children_node)
+                depth_ += 1
+                print(f"{depth_=}")
+                # print(f"{children_node=}")
+                string_nest = build_string(children_node, depth_)
                 current_string += string_nest
             elif node['type'] == 'unchanged':
-                current_string += f"{indent}    {node['key']}: {get_children(node, depth)[0]}\n"
+                # current_string += '{\n'
+                current_string += f"    {node['key']}: {get_children(node, depth_)[0]}\n"
             elif node['type'] == 'changed':
-                current_string += f"{indent}  - {node['key']}: {get_children(node, depth)[0]}\n"
-                current_string += f"{indent}  + {node['key']}: {get_children(node, depth)[1]}\n"
+                current_string += f"  - {node['key']}: {get_children(node, depth_)[0]}\n"
+                current_string += f"      + {node['key']}: {get_children(node, depth_)[1]}\n"
             elif node['type'] == 'deleted':
-                current_string += f"{indent}  - {node['key']}: {get_children(node, depth)[0]}\n"
+                current_string += f"  - {node['key']}: {get_children(node, depth_)[0]}\n"
             elif node['type'] == 'added':
-                current_string += f"{indent}  + {node['key']}: {get_children(node, depth)[0]}\n"
-            current_string += f"{indent}"
-            current_string += '}\n'
-            print(f"{current_string=}")
+                current_string += f"  + {node['key']}: {get_children(node, depth_)[0]}\n"
+                # current_string += '{\n'
+            # current_string += f"{indent}"
+            # current_string += '}\n'
+            # print(f"{current_string=}")
             return current_string
         # return inner
 
         for item in tree:
-            string = inner(item)
+            string = inner(item, depth)
             result += string
+        result += f"{' ' * 4 * depth}"
+        result += '}\n'
         return result
 
     return build_string(tree_differences)
 
-
-print(f"{stylish('json_files/file1_stylish.json', 'json_files/file2_stylish.json')=}")
+total = stylish('json_files/file1_stylish.json', 'json_files/file2_stylish.json')
+string = open('json_files/file_out_2', 'w')
+string.write(total)
+print(total)
