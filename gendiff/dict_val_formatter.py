@@ -20,4 +20,4 @@ def to_str(value):
         value = None
     else:
         pass
-    return value
+    return str(value)
