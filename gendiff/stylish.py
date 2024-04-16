@@ -1,6 +1,5 @@
 from gendiff.parser_file import parsing_file
 from gendiff.dict_val_formatter import to_str
-import functools
 
 # эта функция создаёт внутреннее представление - промежуточную структуру данных tree_differences,
 # где указаны различия между data1 и data2 по параметрам: ключ, тип изменения, значения по ключу
@@ -66,7 +65,7 @@ def stylish(filepath1_, filepath2_):
     # print('data1 = ', data1)
     # print('data2 = ', data2)
     tree_differences = build_tree(data1, data2)
-    print(f"{tree_differences=}")
+    # print(f"{tree_differences=}")
 
     # эта функция формирует результирующую строку-дифф
 
@@ -92,26 +91,30 @@ def stylish(filepath1_, filepath2_):
                 line.append(f"{indent_}    {node['key']}: ")
                 line.append(f"{build_string(node, depth_ + 1)}")
             elif node['type'] == 'changed':
+                [value_in, value_out] = node['children']
                 line.append(f"{indent_}  - {node['key']}: ")
-                line.append(f"{iter_(node['children'][0])}\n")
+                if isinstance(value_in, dict):
+                    node['children'] = [value_in]
+                line.append(f"{build_string(node, depth_ + 1)}\n")
                 line.append(f"{indent_}  + {node['key']}: ")
-                line.append(f"{iter_(node['children'][1])}")
+                node['children'] = [value_out]
+                if isinstance(value_out, dict):
+                    node['children'] = [value_out]
+                line.append(f"{build_string(node, depth_ + 1)}")
             elif node['type'] == 'deleted':
                 line.append(f"{indent_}  - {node['key']}: ")
                 line.append(f"{build_string(node, depth_ + 1)}")
             elif node['type'] == 'added':
                 line.append(f"{indent_}  + {node['key']}: ")
                 line.append(f"{build_string(node, depth_ + 1)}")
-            print(f"{line=}")
+            # print(f"{line=}")
             return ''.join(line)
-        # string = map(lambda nod: iter_(nod, depth) if isinstance(nod, dict) else nod, nods)
-        # return '{' + ''.join(string) + '\n' + indent + '}'
 
         string = '{'
-        for nod in nods:
-            if not isinstance(nod, dict):
-                return nod
-            string += iter_(nod, depth)
+        for node in nods:
+            if not isinstance(node, dict):
+                return node
+            string += iter_(node, depth)
         string += f"\n{indent}"
         string += '}'
         return string
@@ -120,7 +123,8 @@ def stylish(filepath1_, filepath2_):
     return build_string(tree_differences)
 
 
-total = stylish('json_files/file1_stylish.json', 'json_files/file2_stylish.json')
-string = open('json_files/file_out_2', 'w')
-string.write(total)
-print(total)
+# total = stylish('/home/mint/PycharmProjects/python-project-50/tests/fixtures/f1_nest.json',
+#                 '/home/mint/PycharmProjects/python-project-50/tests/fixtures/f2_nest.json')
+# string = open('/home/mint/PycharmProjects/python-project-50/gendiff/json_files/file_out_2', 'w')
+# string.write(total)
+# print(total)
