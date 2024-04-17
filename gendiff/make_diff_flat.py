@@ -1,5 +1,5 @@
 from gendiff.parser_file import parsing_file
-from gendiff.dict_val_formatter import to_str_value
+from gendiff.formatters.make_str import to_str_value
 
 
 def generate_diff(filepath1_, filepath2_):

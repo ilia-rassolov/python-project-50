@@ -2,5 +2,5 @@
   "timeout": 20,
   "verbose": true,
   "host": "hexlet.io",
-  "key_more": "value"
+  "key": "value"
 }

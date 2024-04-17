@@ -1,5 +1,5 @@
 from gendiff.parser_file import parsing_file
-from gendiff.dict_val_formatter import to_str
+from gendiff.formatters.make_str import to_str
 
 # эта функция создаёт внутреннее представление - промежуточную структуру данных tree_differences,
 # где указаны различия между data1 и data2 по параметрам: ключ, тип изменения, значения по ключу
@@ -123,8 +123,8 @@ def stylish(filepath1_, filepath2_):
     return build_string(tree_differences)
 
 
-# total = stylish('/home/mint/PycharmProjects/python-project-50/tests/fixtures/f1_nest.json',
-#                 '/home/mint/PycharmProjects/python-project-50/tests/fixtures/f2_nest.json')
-# string = open('/home/mint/PycharmProjects/python-project-50/gendiff/json_files/file_out_2', 'w')
+# total = stylish('json_files/file1_stylish.json',
+#                 'json_files/file2_stylish.json')
+# string = open('json_files/file_out_2', 'w')
 # string.write(total)
 # print(total)

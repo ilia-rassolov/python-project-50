@@ -3,5 +3,5 @@
   "timeout": 50000,
   "proxy": "100.000.00.00",
   "follow": false,
-  "key_None": null
+  "key": null
 }
