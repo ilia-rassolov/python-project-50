@@ -1,7 +1,7 @@
 from gendiff.formatters.make_str import to_str
 
 
-def format_flat_data(data1, data2):
+def flat(data1, data2):
     # объединим ключи через множество в список
     keys = list(set(data1 | data2))
     keys.sort()

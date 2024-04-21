@@ -2,20 +2,25 @@ from gendiff.make_diff import generate_diff
 from gendiff.parser_file import parsing_file
 from gendiff.formatters.make_str import to_str
 from gendiff.formatters.stylish import stylish
+from gendiff.formatters.flat import flat
 import pytest
 
 
-@pytest.mark.parametrize("filepath1", ['fixtures/flat_f1.json',
-                                       'fixtures/flat_f1.yaml',
-                                       'fixtures/flat_f1.yml'])
-@pytest.mark.parametrize("filepath2", ['fixtures/flat_f2.json',
-                                       'fixtures/flat_f2.yaml'])
-def test_generate_diff(filepath1, filepath2, format=stylish):
+@pytest.mark.parametrize("filepath1, filepath2, formatter", [
+       ('fixtures/flat_f1.json', 'fixtures/flat_f2.json', flat),
+       ('fixtures/flat_f1.yaml', 'fixtures/flat_f2.yaml', flat),
+       ('fixtures/flat_f1.json', 'fixtures/flat_f2.yaml', flat),
+       ('fixtures/flat_f1.yml', 'fixtures/flat_f2.json', flat),
+       ('fixtures/nest_f1.json', 'fixtures/nest_f2.json', stylish),
+       ('fixtures/nest_f1.yaml', 'fixtures/nest_f2.yaml', stylish)])
+def test_generate_diff(filepath1, filepath2, formatter):
+
 
     data1 = parsing_file(filepath1)
     data2 = parsing_file(filepath2)
 
-    if format != stylish:
+    if formatter == flat:
+
 
         # объединим ключи через множество в список
         keys = list(set(data1 | data2))
@@ -37,13 +42,18 @@ def test_generate_diff(filepath1, filepath2, format=stylish):
             else:
                 string.write(f'  + {key}: {to_str(data2[key])}\n')
         string.write('}')
-        string = open('fixtures/exp_flat')
+        fixture = 'fixtures/exp_flat'
+        string = open(fixture)
         expected_result = string.read()
-
-        diff = generate_diff(filepath1, filepath2, format)
+        diff = generate_diff(filepath1, filepath2, formatter)
         assert diff == expected_result
         pass
-    else:
-
-
-
+    elif formatter == stylish:
+        fixture = f'fixtures/exp_{filepath1[-4:]}.txt'
+        string = open(fixture)
+        expected_result = string.read()
+        # print(f"{expected_result=}")
+        diff = generate_diff(filepath1, filepath2, formatter)
+        # print(f"{diff=}")
+        assert diff == expected_result
+        pass

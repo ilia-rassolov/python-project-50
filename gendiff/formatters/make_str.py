@@ -21,3 +21,5 @@ def to_str(value):
     else:
         pass
     return str(value)
+
+# abs = 'home/user/PycharmProjects/HexletEx/python-project-50/tests/'
