@@ -15,18 +15,16 @@ import pytest
        ('fixtures/nest_f1.yaml', 'fixtures/nest_f2.yaml', stylish)])
 def test_generate_diff(filepath1, filepath2, formatter):
 
-
     data1 = parsing_file(filepath1)
     data2 = parsing_file(filepath2)
 
     if formatter == flat:
 
-
-        # объединим ключи через множество в список
+        # объединим ключи
         keys = list(set(data1 | data2))
         keys.sort()
 
-        # запишем различия между данными в exp_flat и прочтём их
+        # запишем различия между данными в фикстуру exp_flat и прочтём их
         string = open('fixtures/exp_flat', 'w')
         string.write('{\n')
         for key in keys:
@@ -52,8 +50,8 @@ def test_generate_diff(filepath1, filepath2, formatter):
         fixture = f'fixtures/exp_{filepath1[-4:]}.txt'
         string = open(fixture)
         expected_result = string.read()
-        # print(f"{expected_result=}")
         diff = generate_diff(filepath1, filepath2, formatter)
-        # print(f"{diff=}")
         assert diff == expected_result
         pass
+    else:
+        raise ValueError(f"Unsupported file format: {formatter}")
