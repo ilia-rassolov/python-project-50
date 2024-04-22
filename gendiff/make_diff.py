@@ -4,7 +4,7 @@ from gendiff.formatters.stylish import stylish
 
 
 def generate_diff(filepath1, filepath2, formatter=stylish):
-    if formatter not in (flat, stylish):
+    if formatter != flat or formatter != stylish:
         raise Exception('not correct name formatter')
     data1 = parsing_file(filepath1)
     data2 = parsing_file(filepath2)

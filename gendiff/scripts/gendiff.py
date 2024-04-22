@@ -7,9 +7,10 @@ from gendiff.formatters.flat import flat
 
 
 def main():
-    if args.formattter not in (flat, stylish):
+    print(args.format)
+    if args.format != flat or args.format != stylish:
         raise Exception('not correct name argument - formatter')
-    diff = generate_diff(args.first_file, args.second_file, args.formatter)
+    diff = generate_diff(args.first_file, args.second_file, args.format)
     print(diff)
 
 
