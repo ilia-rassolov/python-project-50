@@ -14,7 +14,7 @@ def stylish(data1, data2):
         nods = tree['children']
         indent = ' ' * 4 * depth
 
-        # эта функция обходит потомком и возвращает разницу между элементами данных
+        # эта функция обходит потомков и возвращает разницу между элементами данных
 
         def iter_(node, depth_=0):
             if not isinstance(node, dict):
