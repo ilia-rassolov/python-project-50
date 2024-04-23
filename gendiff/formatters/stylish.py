@@ -9,7 +9,6 @@ def stylish(data1, data2):
     # эта функция формирует результирующую строку-дифф
 
     def build_string(tree, depth=0):
-        # print(f"{tree=}")
         if not isinstance(tree, dict):
             return tree
         nods = tree['children']
@@ -18,7 +17,6 @@ def stylish(data1, data2):
         # эта функция обходит потомком и возвращает разницу между элементами данных
 
         def iter_(node, depth_=0):
-            # print(f"{node=}")
             if not isinstance(node, dict):
                 return node
             indent_ = ' ' * 4 * depth_
@@ -46,7 +44,6 @@ def stylish(data1, data2):
             elif node['type'] == 'added':
                 line.append(f"{indent_}  + {node['key']}: ")
                 line.append(f"{build_string(node, depth_ + 1)}")
-            # print(f"{line=}")
             return ''.join(line)
 
         string = '{'
