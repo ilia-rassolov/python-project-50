@@ -22,10 +22,17 @@
 
 3. **gendiff gendiff/yaml_files/file1.yaml gendiff/yaml_files/file.yml** 
 
-   сравнивает данные в файлах формата .yaml .yml
+   сравнивает данные в файлах формата .yaml .yml, но только если данные простые - без вложенности
 
 
 [![asciicast](https://asciinema.org/a/4gPnydJ1xEsY6mBPO4adSVsSx.svg)](https://asciinema.org/a/4gPnydJ1xEsY6mBPO4adSVsSx)
+
+4. **gendiff tests/fixtures/nest_f1.yaml tests/fixtures/nest_f2.yaml -f stylish** 
+
+   сравнивает данные с вложенностью, используется форматтер stylish
+
+
+[![asciicast](https://asciinema.org/a/rgxkBHia0fNGSpttZ1qiYtMan.svg)](https://asciinema.org/a/rgxkBHia0fNGSpttZ1qiYtMan)
 
 
 

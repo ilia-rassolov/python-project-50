@@ -4,7 +4,5 @@ dist/
 .idea/
 __pycache__/
 questions.txt
-#json_files/
-#yaml_files/
 #fixtures/
 demo.cast
