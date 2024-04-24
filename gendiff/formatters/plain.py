@@ -16,9 +16,9 @@ def plain(data1, data2):
 
         def iter_(node):
             print(f"{node=}")
-            if not isinstance(node, dict):
-                return node
-            line = ['Property ']
+            # if not isinstance(node, dict):
+            #     return node
+            line = []
             if node['type'] == 'nested':
                 line.append(f"'{node['key']}'{build_text(node)}")
             elif node['type'] == 'unchanged':
@@ -35,26 +35,19 @@ def plain(data1, data2):
             elif node['type'] == 'deleted':
                 line.append(f"'{node['key']}' was removed")
             elif node['type'] == 'added':
-                [value] = node['children']
-                if isinstance(value, dict):
-                    value = '[complex value]'
-                line.append(f"'{node['key']}' was added with value: {value}")
-            return ''.join(line)
+                value = node['children']
+                if isinstance(value[0], dict) or len(value) > 1:
+                    value[0] = '[complex value]'
+                line.append(f"'{node['key']}' was added with value: {value[0]}")
+            return 'Property ' + ''.join(line)
 
         for node in nods:
-
-            if not isinstance(node, dict):
-                return node
-            text.extend(iter_(node))
-        return 'Property ' + "\n'Property '".join(text)
+    #         if not isinstance(node, dict):
+    #             return node
+            text.append(iter_(node))
+        return "\n'".join(text)
 
     return build_text(tree_differences)
-
-
-
-
-
-
 
 
 data1 = parsing_file('fixtures/nest_f1.json')
