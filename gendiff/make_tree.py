@@ -49,9 +49,9 @@ def build_tree(data_input, data_out):
                 elif value1 == 'absent':
                     current_dict['type'] = 'added'
                 elif value2 == 'absent':
-                    current_dict['type'] = 'deleted'
+                    current_dict['type'] = 'removed'
                 else:
-                    current_dict['type'] = 'changed'
+                    current_dict['type'] = 'updated'
 
             children_tree.append(current_dict)
         return children_tree

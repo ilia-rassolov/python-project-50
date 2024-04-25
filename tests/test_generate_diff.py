@@ -5,13 +5,13 @@ import pytest
 
 
 @pytest.mark.parametrize("filepath1, filepath2, formatter", [
-       ('fixtures/flat_f1.json', 'fixtures/flat_f2.json', 'flat'),
-       ('fixtures/flat_f1.yaml', 'fixtures/flat_f2.yaml', 'flat'),
-       ('fixtures/flat_f1.json', 'fixtures/flat_f2.yaml', 'flat'),
-       ('fixtures/flat_f1.yml', 'fixtures/flat_f2.json', 'flat'),
-       ('fixtures/nest_f1.json', 'fixtures/nest_f2.json', 'stylish'),
-       ('fixtures/nest_f1.yaml', 'fixtures/nest_f2.yaml', 'stylish'),
-       ('fixtures/nest_f1.json', 'fixtures/nest_f2.json', 'plain')])
+       ('tests/fixtures/flat_f1.json', 'tests/fixtures/flat_f2.json', 'flat'),
+       ('tests/fixtures/flat_f1.yaml', 'tests/fixtures/flat_f2.yaml', 'flat'),
+       ('tests/fixtures/flat_f1.json', 'tests/fixtures/flat_f2.yaml', 'flat'),
+       ('tests/fixtures/flat_f1.yml', 'tests/fixtures/flat_f2.json', 'flat'),
+       ('tests/fixtures/nest_f1.json', 'tests/fixtures/nest_f2.json', 'stylish'),
+       ('tests/fixtures/nest_f1.yaml', 'tests/fixtures/nest_f2.yaml', 'stylish'),
+       ('tests/fixtures/nest_f1.json', 'tests/fixtures/nest_f2.json', 'plain')])
 def test_generate_diff(filepath1, filepath2, formatter):
 
     data1 = parsing_file(filepath1)

@@ -1,51 +1,41 @@
 from gendiff.make_tree import build_tree
 from gendiff.parser_file import parsing_file
-from gendiff.formatters.make_str import to_str
+from gendiff.formatters.children_for_plain import format_children
+from functools import reduce
 
+
+# эта функция удаляет результат обхода словарей 'unchanged'
+def filter_is_unchanged(text_):
+    return filter(lambda x: x != 'empty line', text_)
 
 def plain(data1, data2):
 
     tree_differences = build_tree(data1, data2)
     print(f"{tree_differences=}")
 
-    def build_text(tree):
+    def build_text(tree, path=''):
         nods = tree['children']
-        text = []
 
-        # эта функция обходит потомков и возвращает описание изменений значений
-
-        def iter_(node):
-            print(f"{node=}")
-            # if not isinstance(node, dict):
-            #     return node
-            line = []
+        def iter_(node, path_):
+            # print(f"{node=}, {path_=}")
+            path_ += f".{node['key']}"
             if node['type'] == 'nested':
-                line.append(f"'{node['key']}'{build_text(node)}")
+                return build_text(node, path_)
+            elif node['type'] == 'updated':
+                children = format_children(node['children'])
+                [value_in, value_out] = children
+                return f"Property '{path_[1:]}' was updated. From {value_in} to {value_out}"
+            elif node['type'] == 'removed':
+                return f"Property '{path_[1:]}' was removed"
             elif node['type'] == 'unchanged':
-                line = []
-            elif node['type'] == 'changed':
-                [value_in, value_out] = node['children']
-                line.append(f"'{node['key']}' was updated. From ")
-                if isinstance(value_in, dict):
-                    value_in = '[complex value]'
-                line.append(f"{value_in} to ")
-                if isinstance(value_out, dict):
-                    value_out = '[complex value]'
-                line.append(value_out)
-            elif node['type'] == 'deleted':
-                line.append(f"'{node['key']}' was removed")
+                return 'empty line'
             elif node['type'] == 'added':
-                value = node['children']
-                if isinstance(value[0], dict) or len(value) > 1:
-                    value[0] = '[complex value]'
-                line.append(f"'{node['key']}' was added with value: {value[0]}")
-            return 'Property ' + ''.join(line)
+                children = format_children(node['children'])
+                value = children[0]
+                return f"Property '{path_[1:]}' was added with value: {value}"
 
-        for node in nods:
-    #         if not isinstance(node, dict):
-    #             return node
-            text.append(iter_(node))
-        return "\n'".join(text)
+        text = reduce(lambda acc, node: acc + [iter_(node, path)], nods, [])
+        return "\n".join(filter_is_unchanged(text))
 
     return build_text(tree_differences)
 

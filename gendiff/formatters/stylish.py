@@ -27,7 +27,7 @@ def stylish(data1, data2):
             elif node['type'] == 'unchanged':
                 line.append(f"{indent_}    {node['key']}: ")
                 line.append(f"{build_string(node, depth_ + 1)}")
-            elif node['type'] == 'changed':
+            elif node['type'] == 'updated':
                 [value_in, value_out] = node['children']
                 line.append(f"{indent_}  - {node['key']}: ")
                 if isinstance(value_in, dict):
@@ -38,7 +38,7 @@ def stylish(data1, data2):
                 if isinstance(value_out, dict):
                     node['children'] = [value_out]
                 line.append(f"{build_string(node, depth_ + 1)}")
-            elif node['type'] == 'deleted':
+            elif node['type'] == 'removed':
                 line.append(f"{indent_}  - {node['key']}: ")
                 line.append(f"{build_string(node, depth_ + 1)}")
             elif node['type'] == 'added':
