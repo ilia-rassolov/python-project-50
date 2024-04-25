@@ -24,7 +24,7 @@ def test_generate_diff(filepath1, filepath2, formatter):
         keys.sort()
 
         # запишем различия между данными в exp_flat и прочтём их
-        string = open('fixtures/exp_flat', 'w')
+        string = open('tests/fixtures/exp_flat', 'w')
         string.write('{\n')
         for key in keys:
             # print(key)
@@ -39,21 +39,21 @@ def test_generate_diff(filepath1, filepath2, formatter):
             else:
                 string.write(f'  + {key}: {to_str(data2[key])}\n')
         string.write('}')
-        fixture = 'fixtures/exp_flat'
+        fixture = 'tests/fixtures/exp_flat'
         string = open(fixture)
         expected_result = string.read()
         diff = generate_diff(filepath1, filepath2, formatter)
         assert diff == expected_result
         pass
     elif formatter == 'stylish':
-        fixture = f'fixtures/exp_{filepath1[-4:]}'
+        fixture = f'tests/fixtures/exp_{filepath1[-4:]}'
         string = open(fixture)
         expected_result = string.read()
         diff = generate_diff(filepath1, filepath2, formatter)
         assert diff == expected_result
         pass
     elif formatter == 'plain':
-        fixture = f'fixtures/exp_{formatter}'
+        fixture = f'tests/fixtures/exp_{formatter}'
         string = open(fixture)
         expected_result = string.read()
         diff = generate_diff(filepath1, filepath2, formatter)
