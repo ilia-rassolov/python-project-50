@@ -8,6 +8,7 @@ from functools import reduce
 def filter_is_unchanged(text_):
     return filter(lambda x: x != 'empty line', text_)
 
+
 def plain(data1, data2):
 
     tree_differences = build_tree(data1, data2)

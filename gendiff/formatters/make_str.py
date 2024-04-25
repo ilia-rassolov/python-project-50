@@ -16,7 +16,7 @@ def to_str_value(data: dict):
 def to_str(value):
     if isinstance(value, bool):
         value = str(value).lower()
-    elif value == None:
+    elif value is None:
         value = 'null'
     else:
         pass
