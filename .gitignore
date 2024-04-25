@@ -4,5 +4,5 @@ dist/
 .idea/
 __pycache__/
 questions.txt
-#fixtures/
+fixtures/
 demo.cast
