@@ -5,7 +5,7 @@ from functools import reduce
 
 # эта функция удаляет результат обхода словарей 'unchanged'
 def filter_is_unchanged(text_):
-    return filter(lambda x: x != 'empty line', text_)
+    return filter(lambda x: x != 'data is immutable', text_)
 
 
 def plain(data1, data2):
@@ -26,7 +26,7 @@ def plain(data1, data2):
             elif node['type'] == 'removed':
                 return f"Property '{path_[1:]}' was removed"
             elif node['type'] == 'unchanged':
-                return 'empty line'
+                return 'data is immutable'
             elif node['type'] == 'added':
                 children = format_children(node['children'])
                 value = children[0]

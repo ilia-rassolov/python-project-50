@@ -29,10 +29,16 @@
 
 4. **gendiff tests/fixtures/nest_f1.yaml tests/fixtures/nest_f2.yaml -f stylish** 
 
-   сравнивает данные с вложенностью, используется форматтер stylish
+   сравнивает данные с вложенностью, используется форматтер stylish, он используется по умолчанию
 
 
 [![asciicast](https://asciinema.org/a/rgxkBHia0fNGSpttZ1qiYtMan.svg)](https://asciinema.org/a/rgxkBHia0fNGSpttZ1qiYtMan)
 
+5. **gendiff tests/fixtures/nest_f1.yaml tests/fixtures/nest_f2.yaml -f plain** 
+
+   форматтер plain выводит сравнение данных в виде текста
+
+
+[![asciicast](https://asciinema.org/a/TVdbwB2Al7Tb5yk29XjSAm515.svg)](https://asciinema.org/a/TVdbwB2Al7Tb5yk29XjSAm515)
 
 
