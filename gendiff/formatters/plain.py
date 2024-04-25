@@ -1,5 +1,4 @@
 from gendiff.make_tree import build_tree
-from gendiff.parser_file import parsing_file
 from gendiff.formatters.children_for_plain import format_children
 from functools import reduce
 
