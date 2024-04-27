@@ -1,11 +1,5 @@
 from gendiff.make_tree import build_tree
 from gendiff.formatters.children_for_plain import format_children
-from functools import reduce
-
-
-# эта функция удаляет результат обхода словарей 'unchanged'
-def filter_is_unchanged(text_):
-    return filter(lambda x: x != 'data is immutable', text_)
 
 
 def plain(data1, data2):
@@ -32,7 +26,12 @@ def plain(data1, data2):
                 value = children[0]
                 return f"Property '{path_[1:]}' was added with value: {value}"
 
-        text = reduce(lambda acc, node: acc + [iter_(node, path)], nods, [])
-        return "\n".join(filter_is_unchanged(text))
+        text = map(lambda node: iter_(node, path), nods)
+
+        # эта функция удаляет результаты обхода словарей 'unchanged'
+        def is_mutable(text_):
+            return filter(lambda x: x != 'data is immutable', text_)
+
+        return "\n".join(is_mutable(text))
 
     return build_text(tree_differences)
