@@ -41,4 +41,12 @@
 
 [![asciicast](https://asciinema.org/a/TVdbwB2Al7Tb5yk29XjSAm515.svg)](https://asciinema.org/a/TVdbwB2Al7Tb5yk29XjSAm515)
 
+6. **gendiff tests/fixtures/nest_f1.yaml tests/fixtures/nest_f2.yaml -f json** 
+
+   форматтер json серилизует (упаковывает) сравнение данных в формат json
+   это необходимо, например, для интеграции с другими программами
+
+
+[![asciicast](https://asciinema.org/a/TVdbwB2Al7Tb5yk29XjSAm515.svg)](https://asciinema.org/a/TVdbwB2Al7Tb5yk29XjSAm515)
+
 

@@ -4,8 +4,8 @@ import pytest
 
 
 @pytest.mark.parametrize("filepath1, filepath2, expected", [
-                        ('tests/fixtures/nest_f1.json', 'tests/fixtures/nest_f2.json', 'tests/fixtures/exp_json'),
-                        ('tests/fixtures/nest_f1.yaml', 'tests/fixtures/nest_f2.yaml', 'tests/fixtures/exp_yaml'),])
+                        ('tests/fixtures/nest_f1.json', 'tests/fixtures/nest_f2.json', 'tests/fixtures/exp_stylish'),
+                        ('tests/fixtures/nest_f1.yaml', 'tests/fixtures/nest_f2.yaml', 'tests/fixtures/exp_stylish'),])
 def test_stylish(filepath1, filepath2, expected):
     data1 = parsing_file(filepath1)
     data2 = parsing_file(filepath2)

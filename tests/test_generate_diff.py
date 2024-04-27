@@ -11,7 +11,8 @@ import pytest
        ('tests/fixtures/flat_f1.yml', 'tests/fixtures/flat_f2.json', 'flat'),
        ('tests/fixtures/nest_f1.json', 'tests/fixtures/nest_f2.json', 'stylish'),
        ('tests/fixtures/nest_f1.yaml', 'tests/fixtures/nest_f2.yaml', 'stylish'),
-       ('tests/fixtures/nest_f1.json', 'tests/fixtures/nest_f2.json', 'plain')])
+       ('tests/fixtures/nest_f1.json', 'tests/fixtures/nest_f2.json', 'plain'),
+       ('tests/fixtures/nest_f1.yaml', 'tests/fixtures/nest_f2.yaml', 'json')])
 def test_generate_diff(filepath1, filepath2, formatter):
 
     data1 = parsing_file(filepath1)
@@ -45,14 +46,7 @@ def test_generate_diff(filepath1, filepath2, formatter):
         diff = generate_diff(filepath1, filepath2, formatter)
         assert diff == expected_result
         pass
-    elif formatter == 'stylish':
-        fixture = f'tests/fixtures/exp_{filepath1[-4:]}'
-        string = open(fixture)
-        expected_result = string.read()
-        diff = generate_diff(filepath1, filepath2, formatter)
-        assert diff == expected_result
-        pass
-    elif formatter == 'plain':
+    elif formatter in ('stylish', 'plain', 'json'):
         fixture = f'tests/fixtures/exp_{formatter}'
         string = open(fixture)
         expected_result = string.read()
