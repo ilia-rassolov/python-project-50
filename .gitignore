@@ -1,8 +1,8 @@
 .venv/
-#.new_venv/
-#dist/
+new_venv/
+dist/
 .idea/
-#__pycache__/
+__pycache__/
 questions.txt
 #fixtures/
 demo.cast
