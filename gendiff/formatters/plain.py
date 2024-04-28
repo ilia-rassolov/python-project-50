@@ -5,6 +5,7 @@ from gendiff.formatters.children_for_plain import format_children
 def plain(data1, data2):
 
     tree_differences = build_tree(data1, data2)
+    # print(f"{tree_differences=}")
 
     def build_text(tree, path=''):
         nods = tree['children']
@@ -15,6 +16,7 @@ def plain(data1, data2):
                 return build_text(node, path_)
             elif node['type'] == 'updated':
                 children = format_children(node['children'])
+                # print(f"{children=}")
                 [value_in, value_out] = children
                 return f"Property '{path_[1:]}' was updated. From {value_in} to {value_out}"
             elif node['type'] == 'removed':

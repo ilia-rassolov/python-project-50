@@ -11,8 +11,8 @@ def test_json(filepath1, filepath2, expected):
     data2 = parsing_file(filepath2)
 
     string = open(expected)
-    expected_result = string.read()
+    result_json = string.read()
 
     diff = json_(data1, data2)
-    assert diff == expected_result
+    assert diff == result_json
     pass

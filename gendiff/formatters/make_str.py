@@ -18,6 +18,8 @@ def to_str(value):
         value = str(value).lower()
     elif value is None:
         value = 'null'
+    elif value == 0:
+        return value
     else:
         pass
     return str(value)

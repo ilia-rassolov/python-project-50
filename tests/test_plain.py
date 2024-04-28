@@ -11,8 +11,8 @@ def test_plain(filepath1, filepath2, expected):
     data2 = parsing_file(filepath2)
 
     string = open(expected)
-    expected_result = string.read()
+    result_plain = string.read()
 
     diff = plain(data1, data2)
-    assert diff == expected_result
+    assert diff == result_plain
     pass

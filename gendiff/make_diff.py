@@ -18,3 +18,7 @@ def generate_diff(filepath1, filepath2, format_name='stylish'):
         return json_(data1, data2)
     else:
         raise ValueError(f"Not correct formatter name: {format_name}")
+
+# f_p_1 = 'formatters/fixtures/nest_f1.json'
+# f_p_2 = 'formatters/fixtures/nest_f2.json'
+# print(generate_diff(f_p_1, f_p_2, 'plain'))
