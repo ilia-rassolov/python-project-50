@@ -10,5 +10,6 @@ def parsing_file(filepath):
     elif f'{filepath}'[-5:] == '.yaml' or f'{filepath}'[-4:] == '.yml':
         data = yaml.load(open(filepath), Loader=SafeLoader)
     else:
-        data = {}
+        string = open(filepath)
+        data = string.read()
     return data
