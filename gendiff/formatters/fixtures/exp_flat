@@ -1,0 +1,7 @@
+{
+  + host: hexlet.io
+  - host-yml: hexlet.io
+  + key: value
+    timeout: 20
+    verbose: true
+}

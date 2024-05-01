@@ -1,4 +1,4 @@
-from gendiff.formatters.json import json_
+from gendiff.formatters.json_ import json_
 from gendiff.parser_file import parsing_file
 import pytest
 
