@@ -28,7 +28,6 @@ def build_tree(data_input, data_out):
             return children_
 
         for key in keys:
-            # print(f"{key=}")
             current_dict = {}
             current_dict['key'] = key
             value1 = data1.get(key, 'absent')
