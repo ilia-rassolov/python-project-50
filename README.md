@@ -39,7 +39,7 @@
    форматтер plain выводит сравнение данных в виде текста
 
 
-[![asciicast](https://asciinema.org/a/TVdbwB2Al7Tb5yk29XjSAm515.svg)](https://asciinema.org/a/TVdbwB2Al7Tb5yk29XjSAm515)
+[![asciicast](https://asciinema.org/a/d5VJcbxy90y1l4ZJ9L3CMnPox.svg)](https://asciinema.org/a/d5VJcbxy90y1l4ZJ9L3CMnPox)
 
 6. **gendiff tests/fixtures/nest_f1.yaml tests/fixtures/nest_f2.yaml -f json** 
 
