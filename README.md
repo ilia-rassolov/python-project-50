@@ -32,7 +32,7 @@
    сравнивает данные с вложенностью, используется форматтер stylish, он используется по умолчанию
 
 
-[![asciicast](https://asciinema.org/a/rgxkBHia0fNGSpttZ1qiYtMan.svg)](https://asciinema.org/a/rgxkBHia0fNGSpttZ1qiYtMan)
+[![asciicast](https://asciinema.org/a/eeIxZD5YnQVxRsvYWuSdrDZgP.svg)](https://asciinema.org/a/eeIxZD5YnQVxRsvYWuSdrDZgP)
 
 5. **gendiff tests/fixtures/nest_f1.yaml tests/fixtures/nest_f2.yaml -f plain** 
 
