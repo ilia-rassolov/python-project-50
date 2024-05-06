@@ -47,6 +47,6 @@
    это необходимо, например, для интеграции с другими программами
 
 
-[![asciicast](https://asciinema.org/a/vj8ZNazDwKnDUPxFpzmOjjenk.svg)](https://asciinema.org/a/vj8ZNazDwKnDUPxFpzmOjjenk)
+[![asciicast](https://asciinema.org/a/TdDDKWXcEkETXczQESVoODOoY.svg)](https://asciinema.org/a/TdDDKWXcEkETXczQESVoODOoY)
 
 
