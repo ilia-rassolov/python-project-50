@@ -20,10 +20,8 @@ jobs:
           make build
           make package-install
           poetry install --with dev
-      - name: Linter & Test
-        run:  |
-          make lint
-          make test
+      - name: Linter
+        run:  make lint
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v5.0.0
         env:
