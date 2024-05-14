@@ -1,12 +1,7 @@
-from gendiff.make_tree import build_tree
+from gendiff.formatters.make_str import to_str
 
 
-def stylish(data1, data2):
-
-    tree_differences = build_tree(data1, data2)
-    # print(f"{tree_differences=}")
-
-    # эта функция формирует результирующую строку-дифф
+def stylish(tree_differences):
 
     def build_string(tree, depth=0):
         if not isinstance(tree, dict):
@@ -18,7 +13,7 @@ def stylish(data1, data2):
 
         def iter_(node, depth_=0):
             if not isinstance(node, dict):
-                return node
+                return to_str(node)
             indent_ = ' ' * 4 * depth_
             line = ['\n']
             if node['type'] == 'nested':
@@ -49,7 +44,7 @@ def stylish(data1, data2):
         string = '{'
         for node in nods:
             if not isinstance(node, dict):
-                return node
+                return to_str(node)
             string += iter_(node, depth)
         string += f"\n{indent}"
         string += '}'

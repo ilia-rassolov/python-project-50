@@ -1,9 +1,6 @@
-from gendiff.make_tree import build_tree
 import json
 
 
-def json_(data1, data2):
-
-    tree_differences = build_tree(data1, data2)
+def json_(tree_differences):
 
     return json.dumps(tree_differences, indent=2, separators=(',', ':'))

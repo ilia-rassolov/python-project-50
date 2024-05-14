@@ -5,3 +5,4 @@ __pycache__/
 questions.txt
 #fixtures/
 demo.cast
+new_venv/

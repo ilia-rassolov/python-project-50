@@ -7,7 +7,7 @@
         {
           "key":"follow",
           "children":[
-            "false"
+            false
           ],
           "type":"added"
         },
@@ -21,15 +21,15 @@
         {
           "key":"setting2",
           "children":[
-            "200"
+            200
           ],
           "type":"removed"
         },
         {
           "key":"setting3",
           "children":[
-            "true",
-            "null"
+            true,
+            null
           ],
           "type":"updated"
         },
@@ -131,7 +131,7 @@
         {
           "key":"abc",
           "children":[
-            "12345"
+            12345
           ],
           "type":"unchanged"
         },
@@ -141,7 +141,7 @@
             {
               "key":"id",
               "children":[
-                "45"
+                45
               ],
               "type":"unchanged"
             }
@@ -163,7 +163,7 @@
                 {
                   "key":"number",
                   "children":[
-                    "45"
+                    45
                   ],
                   "type":"unchanged"
                 }
@@ -176,7 +176,7 @@
         {
           "key":"fee",
           "children":[
-            "100500"
+            100500
           ],
           "type":"unchanged"
         }
