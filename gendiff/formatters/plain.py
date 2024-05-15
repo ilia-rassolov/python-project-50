@@ -1,4 +1,4 @@
-from gendiff.formatters.make_str import to_str
+from gendiff.make_str import to_str
 
 # эта функция форматирует список потомков в нужный вид
 

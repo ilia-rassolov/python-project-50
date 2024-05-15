@@ -5,6 +5,7 @@
 
 def build_tree(data_input, data_out):
 
+
     # эта функция формирует потомков из 2-х словарей по всем ключам
 
     def inner(data1, data2):
@@ -54,14 +55,3 @@ def build_tree(data_input, data_out):
             children_tree.append(current_dict)
         return children_tree
     return {'type': 'root', 'children': inner(data_input, data_out)}
-
-#
-# data1 = {'common': {'setting1': 'Value 1', 'setting2': 200, 'setting3': True, 'setting6': {'key': 'value',
-# 'doge': {'wow': ''}}}, 'group1': {'baz': 'bas', 'foo': 'bar', 'nest': {'key': 'value'}}, 'group2':
-# {'abc': 12345, 'deep': {'id': 45}}}
-# data2 = {'common': {'follow': False, 'setting1': 'Value 1', 'setting3': None, 'setting4': 'blah blah', 'setting5':
-# {'key5': 'value5'}, 'setting6': {'key': 'value', 'ops': 'vops', 'doge': {'wow': 'so much'}}}, 'group1':
-# {'foo': 'bar', 'baz': 'bars', 'nest': 'str'}, 'group3': {'deep': {'id': {'number': 45}}, 'fee': 100500}}
-# print(f"{data1=}")
-# print(f"{data2=}")
-# print(build_tree(data1, data2))

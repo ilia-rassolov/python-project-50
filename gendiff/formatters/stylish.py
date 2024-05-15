@@ -1,4 +1,4 @@
-from gendiff.formatters.make_str import to_str
+from gendiff.make_str import to_str
 
 
 def stylish(tree_differences):
