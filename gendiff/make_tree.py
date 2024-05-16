@@ -5,7 +5,6 @@
 
 def build_tree(data_input, data_out):
 
-
     # эта функция формирует потомков из 2-х словарей по всем ключам
 
     def inner(data1, data2):

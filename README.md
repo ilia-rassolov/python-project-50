@@ -45,11 +45,11 @@
 
 ```gendiff -h```
 
-##### Сравниваем данные, расположенные в 2-х файлах
+##### Сравниваем данные, расположенные в двух файлах
 
 По умолчанию используется форматтер stylish
 
-``gendiff tests/fixtures/nest_f1.json tests/fixtures/nest_f2.yaml``
+``gendiff tests/fixtures/nest_f1.json tests/fixtures/nest_f2.json``
 
 [![asciicast](https://asciinema.org/a/9PXyXjCfNhSfwkhR0EewupDAr.svg)](https://asciinema.org/a/9PXyXjCfNhSfwkhR0EewupDAr)
 
@@ -57,7 +57,7 @@
    
 Он выводит результат в виде текста
 
-`gendiff tests/fixtures/nest_f1.yaml tests/fixtures/nest_f2.yaml -f plain`
+`gendiff tests/fixtures/nest_f1.json tests/fixtures/nest_f2.yaml -f plain`
  
 [![asciicast](https://asciinema.org/a/FBGvehv5sugAveyKEuXzz0Ssd.svg)](https://asciinema.org/a/FBGvehv5sugAveyKEuXzz0Ssd)
 
@@ -65,7 +65,7 @@
 
 Это необходимо, например, для интеграции с другими программами
 
-`gendiff tests/fixtures/nest_f1.yaml tests/fixtures/nest_f2.yaml -f json`
+`gendiff tests/fixtures/nest_f1.yml tests/fixtures/nest_f2.yaml -f json`
 
 [![asciicast](https://asciinema.org/a/2peFrQevgvdhmFVzzZDWG8zsk.svg)](https://asciinema.org/a/2peFrQevgvdhmFVzzZDWG8zsk)
 
