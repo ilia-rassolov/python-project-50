@@ -30,8 +30,6 @@ def plain(tree_differences):
                 return f"Property '{path_[1:]}' was updated. From {value_in} to {value_out}"
             elif node['type'] == 'removed':
                 return f"Property '{path_[1:]}' was removed"
-            elif node['type'] == 'unchanged':
-                return None
             elif node['type'] == 'added':
                 children = format_children(node['children'])
                 value = children[0]
@@ -39,7 +37,6 @@ def plain(tree_differences):
 
         text = map(lambda node: iter_(node, path), nods)
 
-        # эта функция удаляет результаты обхода словарей 'unchanged'
         def is_mutable(text_):
             return filter(lambda x: x is not None, text_)
 

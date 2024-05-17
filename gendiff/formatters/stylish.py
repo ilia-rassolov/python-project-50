@@ -22,6 +22,9 @@ def stylish(tree_differences):
             elif node['type'] == 'unchanged':
                 line.append(f"{indent_}    {node['key']}: ")
                 line.append(f"{build_string(node, depth_ + 1)}")
+            elif node['type'] == 'not_comparable':
+                line.append(f"{indent_}    {node['key']}: ")
+                line.append(f"{build_string(node, depth_ + 1)}")
             elif node['type'] == 'updated':
                 [value_in, value_out] = node['children']
                 line.append(f"{indent_}  - {node['key']}: ")

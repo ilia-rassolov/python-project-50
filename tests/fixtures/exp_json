@@ -6,52 +6,53 @@
       "children":[
         {
           "key":"follow",
+          "type":"added",
           "children":[
             false
-          ],
-          "type":"added"
+          ]
         },
         {
           "key":"setting1",
+          "type":"unchanged",
           "children":[
             "Value 1"
-          ],
-          "type":"unchanged"
+          ]
         },
         {
           "key":"setting2",
+          "type":"removed",
           "children":[
             200
-          ],
-          "type":"removed"
+          ]
         },
         {
           "key":"setting3",
+          "type":"updated",
           "children":[
             true,
             null
-          ],
-          "type":"updated"
+          ]
         },
         {
           "key":"setting4",
+          "type":"added",
           "children":[
             "blah blah"
-          ],
-          "type":"added"
+          ]
         },
         {
           "key":"setting5",
+          "type":"added",
           "children":[
             {
               "key":"key5",
+              "type":"not_comparable",
               "children":[
+                "value5",
                 "value5"
-              ],
-              "type":"unchanged"
+              ]
             }
-          ],
-          "type":"added"
+          ]
         },
         {
           "key":"setting6",
@@ -61,28 +62,28 @@
               "children":[
                 {
                   "key":"wow",
+                  "type":"updated",
                   "children":[
                     "",
                     "so much"
-                  ],
-                  "type":"updated"
+                  ]
                 }
               ],
               "type":"nested"
             },
             {
               "key":"key",
+              "type":"unchanged",
               "children":[
                 "value"
-              ],
-              "type":"unchanged"
+              ]
             },
             {
               "key":"ops",
+              "type":"added",
               "children":[
                 "vops"
-              ],
-              "type":"added"
+              ]
             }
           ],
           "type":"nested"
@@ -95,93 +96,98 @@
       "children":[
         {
           "key":"baz",
+          "type":"updated",
           "children":[
             "bas",
             "bars"
-          ],
-          "type":"updated"
+          ]
         },
         {
           "key":"foo",
+          "type":"unchanged",
           "children":[
             "bar"
-          ],
-          "type":"unchanged"
+          ]
         },
         {
           "key":"nest",
+          "type":"updated",
           "children":[
             {
               "key":"key",
+              "type":"not_comparable",
               "children":[
+                "value",
                 "value"
-              ],
-              "type":"unchanged"
+              ]
             },
             "str"
-          ],
-          "type":"updated"
+          ]
         }
       ],
       "type":"nested"
     },
     {
       "key":"group2",
+      "type":"removed",
       "children":[
         {
           "key":"abc",
+          "type":"not_comparable",
           "children":[
+            12345,
             12345
-          ],
-          "type":"unchanged"
+          ]
         },
         {
           "key":"deep",
+          "type":"not_comparable",
           "children":[
             {
               "key":"id",
+              "type":"not_comparable",
               "children":[
+                45,
                 45
-              ],
-              "type":"unchanged"
+              ]
             }
-          ],
-          "type":"unchanged"
+          ]
         }
-      ],
-      "type":"removed"
+      ]
     },
     {
       "key":"group3",
+      "type":"added",
       "children":[
         {
           "key":"deep",
+          "type":"not_comparable",
           "children":[
             {
               "key":"id",
+              "type":"not_comparable",
               "children":[
                 {
                   "key":"number",
+                  "type":"not_comparable",
                   "children":[
+                    45,
                     45
-                  ],
-                  "type":"unchanged"
+                  ]
                 }
-              ],
-              "type":"unchanged"
+              ]
             }
-          ],
-          "type":"unchanged"
+          ]
         },
         {
           "key":"fee",
+          "type":"not_comparable",
           "children":[
+            100500,
             100500
-          ],
-          "type":"unchanged"
+          ]
         }
-      ],
-      "type":"added"
+      ]
     }
   ]
 }
