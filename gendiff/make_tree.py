@@ -6,6 +6,7 @@
 def build_tree(data_input, data_out):
 
     # эта функция формирует потомков из 2-х словарей по всем ключам
+    # not_comparable=True если словари одинаковые
 
     def inner(data1, data2, not_comparable=False):
         children_tree = []
@@ -23,7 +24,7 @@ def build_tree(data_input, data_out):
                         value_ = inner(dict_[key_], dict_[key_], True)
                     else:
                         value_ = [dict_[key_]]
-                    # в этом списке не должно быть дублированных значений
+                    # в этом списке не дублируем значения
                     if value_ not in children_:
                         children_.extend(value_)
             return children_

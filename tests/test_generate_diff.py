@@ -11,12 +11,11 @@ import pytest
     ('tests/fixtures/nest_f1.yaml', 'tests/fixtures/nest_f2.yaml', 'json')])
 def test_generate_diff(filepath1, filepath2, formatter):
 
-    if formatter in ('stylish', 'plain', 'json'):
-        fixture = f'tests/fixtures/exp_{formatter}'
-        string = open(fixture)
-        expected_result = string.read()
-        diff = generate_diff(filepath1, filepath2, formatter)
-        assert diff == expected_result
-        pass
-    else:
+    if formatter not in ('stylish', 'plain', 'json'):
         raise ValueError(f"Unsupported file format: {formatter}")
+
+    fixture = f'tests/fixtures/exp_{formatter}'
+    string = open(fixture)
+    expected_result = string.read()
+    diff = generate_diff(filepath1, filepath2, formatter)
+    assert diff == expected_result
