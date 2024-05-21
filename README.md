@@ -51,7 +51,7 @@
 
 ``gendiff tests/fixtures/nest_f1.json tests/fixtures/nest_f2.json``
 
-[![asciicast](https://asciinema.org/a/9PXyXjCfNhSfwkhR0EewupDAr.svg)](https://asciinema.org/a/9PXyXjCfNhSfwkhR0EewupDAr)
+[![asciicast](https://asciinema.org/a/PV7Nfp9UE6FHwsQaSoYLg5CFx.svg)](https://asciinema.org/a/PV7Nfp9UE6FHwsQaSoYLg5CFx)
 
 ##### Сравнение также доступно при помощи форматтера plain
    
@@ -59,7 +59,7 @@
 
 `gendiff tests/fixtures/nest_f1.json tests/fixtures/nest_f2.yaml -f plain`
  
-[![asciicast](https://asciinema.org/a/FBGvehv5sugAveyKEuXzz0Ssd.svg)](https://asciinema.org/a/FBGvehv5sugAveyKEuXzz0Ssd)
+[![asciicast](https://asciinema.org/a/77V0zuNaM2FuKO8aFRwShTjgy.svg)](https://asciinema.org/a/77V0zuNaM2FuKO8aFRwShTjgy)
 
 ##### Форматтер json серилизует, то есть упаковывает результат сравнения данных в формат json
 
@@ -67,6 +67,6 @@
 
 `gendiff tests/fixtures/nest_f1.yml tests/fixtures/nest_f2.yaml -f json`
 
-[![asciicast](https://asciinema.org/a/2peFrQevgvdhmFVzzZDWG8zsk.svg)](https://asciinema.org/a/2peFrQevgvdhmFVzzZDWG8zsk)
+[![asciicast](https://asciinema.org/a/Y47ADSZlINtlmFVYiylHd40qd.svg)](https://asciinema.org/a/Y47ADSZlINtlmFVYiylHd40qd)
 
 ---
