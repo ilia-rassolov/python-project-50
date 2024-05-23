@@ -9,6 +9,7 @@ def generate_diff(filepath1, filepath2, format_name='stylish'):
     data1 = parse_file(filepath1)
     data2 = parse_file(filepath2)
     tree_differences = build_tree(data1, data2)
+
     if format_name == 'stylish':
         return format_stylishly(tree_differences)
     elif format_name == 'plain':

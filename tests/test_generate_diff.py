@@ -10,7 +10,6 @@ import pytest
     ('tests/fixtures/nest_f1.yml', 'tests/fixtures/nest_f2.yaml', 'json'),
     ('tests/fixtures/nest_f1.yaml', 'tests/fixtures/nest_f2.yaml', 'json')])
 def test_generate_diff(filepath1, filepath2, formatter):
-
     fixture = f'tests/fixtures/exp_{formatter}'
     string = open(fixture)
     expected_result = string.read()

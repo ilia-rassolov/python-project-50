@@ -30,6 +30,5 @@ def format_simply(tree, path=''):
         elif node['type'] == 'added':
             value = format_dict_value(node['value'])
             return f"Property '{path_[:-1]}' was added with value: {value}"
-
     text = [walk(node, path) for node in nods if walk(node, path)]
     return "\n".join(text)
