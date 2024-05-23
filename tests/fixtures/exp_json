@@ -1,56 +1,52 @@
 {
-  "type":"root",
-  "children":[
+  "root":[
     {
       "key":"common",
       "children":[
         {
           "key":"follow",
           "type":"added",
-          "children":[
+          "value":[
             false
           ]
         },
         {
           "key":"setting1",
           "type":"unchanged",
-          "children":[
+          "value":[
             "Value 1"
           ]
         },
         {
           "key":"setting2",
           "type":"removed",
-          "children":[
+          "value":[
             200
           ]
         },
         {
           "key":"setting3",
           "type":"updated",
-          "children":[
-            true,
+          "value":[
+            true
+          ],
+          "new_value":[
             null
           ]
         },
         {
           "key":"setting4",
           "type":"added",
-          "children":[
+          "value":[
             "blah blah"
           ]
         },
         {
           "key":"setting5",
           "type":"added",
-          "children":[
+          "value":[
             {
-              "key":"key5",
-              "type":"not_comparable",
-              "children":[
-                "value5",
-                "value5"
-              ]
+              "key5":"value5"
             }
           ]
         },
@@ -63,8 +59,10 @@
                 {
                   "key":"wow",
                   "type":"updated",
-                  "children":[
-                    "",
+                  "value":[
+                    ""
+                  ],
+                  "new_value":[
                     "so much"
                   ]
                 }
@@ -74,14 +72,14 @@
             {
               "key":"key",
               "type":"unchanged",
-              "children":[
+              "value":[
                 "value"
               ]
             },
             {
               "key":"ops",
               "type":"added",
-              "children":[
+              "value":[
                 "vops"
               ]
             }
@@ -97,30 +95,29 @@
         {
           "key":"baz",
           "type":"updated",
-          "children":[
-            "bas",
+          "value":[
+            "bas"
+          ],
+          "new_value":[
             "bars"
           ]
         },
         {
           "key":"foo",
           "type":"unchanged",
-          "children":[
+          "value":[
             "bar"
           ]
         },
         {
           "key":"nest",
           "type":"updated",
-          "children":[
+          "value":[
             {
-              "key":"key",
-              "type":"not_comparable",
-              "children":[
-                "value",
-                "value"
-              ]
-            },
+              "key":"value"
+            }
+          ],
+          "new_value":[
             "str"
           ]
         }
@@ -130,62 +127,26 @@
     {
       "key":"group2",
       "type":"removed",
-      "children":[
+      "value":[
         {
-          "key":"abc",
-          "type":"not_comparable",
-          "children":[
-            12345,
-            12345
-          ]
-        },
-        {
-          "key":"deep",
-          "type":"not_comparable",
-          "children":[
-            {
-              "key":"id",
-              "type":"not_comparable",
-              "children":[
-                45,
-                45
-              ]
-            }
-          ]
+          "abc":12345,
+          "deep":{
+            "id":45
+          }
         }
       ]
     },
     {
       "key":"group3",
       "type":"added",
-      "children":[
+      "value":[
         {
-          "key":"deep",
-          "type":"not_comparable",
-          "children":[
-            {
-              "key":"id",
-              "type":"not_comparable",
-              "children":[
-                {
-                  "key":"number",
-                  "type":"not_comparable",
-                  "children":[
-                    45,
-                    45
-                  ]
-                }
-              ]
+          "deep":{
+            "id":{
+              "number":45
             }
-          ]
-        },
-        {
-          "key":"fee",
-          "type":"not_comparable",
-          "children":[
-            100500,
-            100500
-          ]
+          },
+          "fee":100500
         }
       ]
     }

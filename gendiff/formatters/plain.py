@@ -1,45 +1,35 @@
 from gendiff.make_str import to_str
 
-# эта функция форматирует список потомков в нужный вид
+
+def format_dict_value(dict_value):
+    correct_value = dict_value[0]
+    if correct_value in (False, True, None) or isinstance(correct_value, int):
+        return to_str(correct_value)
+    elif isinstance(correct_value, dict):
+        return '[complex value]'
+    else:
+        return f"'{correct_value}'"
 
 
-def format_children(children):
-    new_children = []
-    for child in children:
-        if child in (False, True, None) or isinstance(child, int):
-            new_children.append(to_str(child))
-        elif isinstance(child, dict):
-            new_children.append('[complex value]')
-        else:
-            new_children.append(f"'{child}'")
-    return new_children
-
-
-def plain(tree_differences):
-
-    def build_text(tree, path=''):
+def format_simply(tree, path=''):
+    if 'root' in tree:
+        nods = tree['root']
+    else:
         nods = tree['children']
 
-        def iter_(node, path_):
-            path_ += f".{node['key']}"
-            if node['type'] == 'nested':
-                return build_text(node, path_)
-            elif node['type'] == 'updated':
-                children = format_children(node['children'])
-                [value_in, value_out] = children
-                return f"Property '{path_[1:]}' was updated. From {value_in} to {value_out}"
-            elif node['type'] == 'removed':
-                return f"Property '{path_[1:]}' was removed"
-            elif node['type'] == 'added':
-                children = format_children(node['children'])
-                value = children[0]
-                return f"Property '{path_[1:]}' was added with value: {value}"
+    def walk(node, path_):
+        path_ += f"{node['key']}."
+        if node['type'] == 'nested':
+            return format_simply(node, path_)
+        elif node['type'] == 'updated':
+            value = format_dict_value(node['value'])
+            new_value = format_dict_value(node['new_value'])
+            return f"Property '{path_[:-1]}' was updated. From {value} to {new_value}"
+        elif node['type'] == 'removed':
+            return f"Property '{path_[:-1]}' was removed"
+        elif node['type'] == 'added':
+            value = format_dict_value(node['value'])
+            return f"Property '{path_[:-1]}' was added with value: {value}"
 
-        text = map(lambda node: iter_(node, path), nods)
-
-        def is_mutable(text_):
-            return filter(lambda x: x is not None, text_)
-
-        return "\n".join(is_mutable(text))
-
-    return build_text(tree_differences)
+    text = [walk(node, path) for node in nods if walk(node, path)]
+    return "\n".join(text)
