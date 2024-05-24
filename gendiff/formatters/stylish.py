@@ -22,7 +22,7 @@ def format_stylishly(tree, descendants=None, depth=0):
         if not node.get('type'):
             for key_ in node.keys():
                 line.append(f"{indent_}    {key_}: ")
-                line.append(f"{format_stylishly(node[key_], depth = depth_ + 1)}\n")
+                line.append(f"{format_stylishly(node[key_], depth=depth_ + 1)}\n")
             line[-1] = line[-1][:-1]
         elif node['type'] == 'nested':
             line.append(f"{indent_}    {node['key']}: ")
