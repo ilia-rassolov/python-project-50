@@ -12,8 +12,6 @@ def format_stylishly(tree, descendants=None, depth=0):
         nods = [{k: v} for k, v in tree.items()]
     indent = ' ' * 4 * depth
 
-    # эта функция обходит потомков и возвращает разницу между элементами данных
-
     def walk(node, depth_=0):
         if not isinstance(node, dict):
             return to_str(node)
@@ -43,11 +41,11 @@ def format_stylishly(tree, descendants=None, depth=0):
             line.append(f"{format_stylishly(node, 'value', depth_ + 1)}")
         return ''.join(line)
 
-    result = '{'
+    result = ['{']
     for node_ in nods:
         if not isinstance(node_, dict):
             return to_str(node_)
-        result += walk(node_, depth)
-    result += f"\n{indent}"
-    result += '}'
-    return result
+        result.append(walk(node_, depth))
+    result.append(f"\n{indent}")
+    result.append('}')
+    return ''.join(result)
